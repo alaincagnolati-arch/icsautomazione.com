@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ICS Automazione | Macchine Automatiche per il Packaging Farmaceutico e Industriale</title>
+<style>
+  :root{
+    --bg:#ffffff; --bg-2:#f5f5f4; --steel:#6b6b6b; --steel-light:#3d3d3d;
+    --red:#c8102e; --red-bright:#e8233f; --ink:#141414; --line:rgba(0,0,0,0.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{font-family:'Helvetica Neue', Arial, sans-serif; background:var(--bg); color:var(--ink); overflow-x:hidden;}
+  a{text-decoration:none;color:inherit;}
+  img,svg{max-width:100%;}
+  @media (prefers-reduced-motion: reduce){
+    *{animation-duration:0.001ms !important; animation-iteration-count:1 !important; transition-duration:0.001ms !important; scroll-behavior:auto !important;}
+  }
+  .skip-link{position:absolute; left:-9999px; top:0; z-index:2000; background:var(--red); color:#fff; padding:12px 22px; font-size:.85rem; letter-spacing:1px;}
+  .skip-link:focus{left:10px; top:10px;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--red); outline-offset:3px;}
+  nav{position:fixed; top:0; left:0; right:0; z-index:1000; display:flex; align-items:center; justify-content:space-between; padding:18px 5%; background:rgba(255,255,255,0.85); backdrop-filter:blur(12px); border-bottom:1px solid var(--line);}
+  .logo{display:flex; align-items:center; gap:12px; background:none; border:none; cursor:pointer; padding:0;}
+  .logo img{height:40px; width:auto;}
+  .logo-text{font-size:.95rem; font-weight:700; letter-spacing:3px; color:var(--ink);}
+  .nav-links{display:flex;gap:32px;font-size:.85rem;letter-spacing:1.5px;text-transform:uppercase;}
+  .lang-switch{display:flex; align-items:center; gap:6px; margin-left:8px;}
+  .lang-btn{
+    width:30px; height:22px; padding:0; border:2px solid transparent; cursor:pointer; background:none;
+    opacity:.5; transition:opacity .25s, border-color .25s; border-radius:2px; overflow:hidden;
+  }
+  .lang-btn svg{width:100%; height:100%; display:block;}
+  .lang-btn:hover{opacity:.8;}
+  .lang-btn.active{opacity:1; border-color:var(--red);}
+  .nav-links a{position:relative;opacity:.85;transition:opacity .25s;}
+  .nav-links a:hover{opacity:1;}
+  .nav-links a::after{content:'';position:absolute;left:0;bottom:-8px;width:0;height:1px;background:var(--red-bright);transition:width .3s;}
+  .nav-links a:hover::after{width:100%;}
+  .burger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:6px;}
+  .burger div{width:24px;height:1.5px;background:var(--ink);transition:transform .3s ease, opacity .3s ease;}
+  .burger.active div:nth-child(1){transform:translateY(6.5px) rotate(45deg);}
+  .burger.active div:nth-child(2){opacity:0;}
+  .burger.active div:nth-child(3){transform:translateY(-6.5px) rotate(-45deg);}
+  .hero{height:100vh; position:relative; display:flex; align-items:center; justify-content:flex-start; padding:0 5%; background:radial-gradient(ellipse 70% 60% at 78% 30%, rgba(200,16,46,0.06), transparent 60%), linear-gradient(180deg, #ffffff 0%, #fafafa 100%); overflow:hidden;}
+  .hero-grid{position:absolute; inset:0; opacity:.5; background-image:linear-gradient(var(--line) 1px, transparent 1px), linear-gradient(90deg, var(--line) 1px, transparent 1px); background-size:60px 60px; mask-image:linear-gradient(180deg, transparent, black 30%, black 70%, transparent);}
+  .hero-machine{position:absolute; right:6%; top:50%; transform:translateY(-50%); width:360px; max-width:34vw; opacity:1; animation:float 7s ease-in-out infinite; mix-blend-mode:multiply; user-select:none; pointer-events:none; will-change:transform;}
+  @keyframes float{0%,100%{transform:translateY(-50%);}50%{transform:translateY(-56%);}}
+  .hero-content{position:relative;z-index:2; max-width:680px;}
+  .hero-tag{display:inline-flex; align-items:center; gap:12px; font-size:.95rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); margin-top:10px; margin-bottom:24px;}
+  .hero-tag::before{content:'';width:42px;height:2px;background:var(--red);}
+  .hero h1{font-size:clamp(2.6rem, 6vw, 4.6rem); font-weight:300; line-height:1.05; letter-spacing:-1px; margin-bottom:26px; color:var(--ink);}
+  .hero h1 strong{font-weight:700; color:var(--ink); display:block;}
+  .hero p{font-size:1.1rem; color:var(--steel-light); max-width:520px; line-height:1.7; margin-bottom:42px; font-weight:300;}
+  .hero-buttons{display:flex;gap:18px;flex-wrap:wrap;}
+  .btn-primary{background:linear-gradient(135deg, var(--red-bright), var(--red)); color:#fff; padding:16px 36px; font-size:.85rem; letter-spacing:2px; text-transform:uppercase; font-weight:600; transition:all .3s; box-shadow:0 10px 30px rgba(200,16,46,0.25); display:inline-block; border:none; cursor:pointer;}
+  .btn-primary:hover{transform:translateY(-3px); box-shadow:0 16px 40px rgba(200,16,46,0.35);}
+  .btn-outline{border:1px solid var(--steel); padding:16px 36px; font-size:.85rem; letter-spacing:2px; text-transform:uppercase; transition:all .3s; color:var(--ink); background:none; cursor:pointer;}
+  .btn-outline:hover{border-color:var(--ink); background:rgba(0,0,0,0.03);}
+  .stats{display:flex; flex-wrap:wrap; gap:0; border-top:1px solid var(--line); border-bottom:1px solid var(--line); background:var(--bg-2);}
+  .stat{flex:1; min-width:200px; padding:44px 5%; text-align:center; border-right:1px solid var(--line);}
+  .stat:last-child{border-right:none;}
+  .stat-num{font-size:2.4rem; font-weight:700; color:var(--ink);}
+  .stat-num span{color:var(--red);}
+  .stat-label{font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--steel); margin-top:8px;}
+  section{padding:120px 5%; position:relative;}
+  .section-tag{font-size:1.18rem; font-weight:800; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); display:flex; align-items:center; gap:14px; margin-bottom:0;}
+  .section-tag::before{content:'';width:48px;height:2px;background:var(--red);}
+  .section-title{font-size:clamp(2rem,4vw,3rem); font-weight:300; max-width:700px; line-height:1.15; margin-bottom:24px; letter-spacing:-0.5px; color:var(--ink);}
+  .section-title strong{font-weight:700;}
+  .section-sub{color:var(--steel-light); max-width:600px; font-size:1.05rem; line-height:1.7; font-weight:300;}
+  .section-head{position:sticky; top:78px; z-index:50; background:var(--bg); padding:10px 0; margin-bottom:22px; display:inline-block;}
+  .products .section-head, .gallery-sec .section-head, .sectors .section-head, .careers .section-head{background:var(--bg-2);}
+  body.lang-transitioning *{transition:opacity .3s ease !important;}
+  body.lang-transitioning [data-i18n], body.lang-transitioning [data-i18n-html]{opacity:0;}
+  .photo-band{position:relative; height:280px; overflow:hidden; background:var(--ink); border-top:1px solid var(--line); border-bottom:1px solid var(--line); contain:layout paint;}
+  .photo-band::before, .photo-band::after{content:''; position:absolute; top:0; bottom:0; width:120px; z-index:3; pointer-events:none;}
+  .photo-band::before{left:0; background:linear-gradient(90deg, var(--ink), transparent);}
+  .photo-band::after{right:0; background:linear-gradient(270deg, var(--ink), transparent);}
+  .photo-band-track{position:absolute; top:0; left:0; height:100%; display:flex; gap:14px; padding:14px; animation:scrollBand 60s linear infinite; will-change:transform; backface-visibility:hidden; transform:translateZ(0);}
+  .photo-band-track img{height:100%; width:auto; aspect-ratio:4/3; object-fit:cover; flex-shrink:0; filter:grayscale(15%) contrast(1.02); opacity:.92; transition:opacity .3s, filter .3s; background:var(--ink);}
+  .photo-band-track img:hover{opacity:1; filter:grayscale(0%) contrast(1.05);}
+  @keyframes scrollBand{from{transform:translate3d(0,0,0);} to{transform:translate3d(-50%,0,0);}}
+  .photo-band-caption{position:absolute; bottom:16px; left:5%; z-index:4; color:#fff; font-size:.75rem; letter-spacing:2px; text-transform:uppercase; opacity:.7;}
+  .about{background:var(--bg);}
+  .about-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:70px; align-items:center;}
+  .about-visual{aspect-ratio:1/1.05; border:1px solid var(--line); position:relative; overflow:hidden; background:var(--bg-2);}
+  .about-visual img{width:100%; height:100%; object-fit:cover; display:block;}
+  .corner{position:absolute; width:24px;height:24px;border:2px solid var(--red); z-index:2;}
+  .corner.tl{top:-1px;left:-1px;border-right:none;border-bottom:none;}
+  .corner.tr{top:-1px;right:-1px;border-left:none;border-bottom:none;}
+  .corner.bl{bottom:-1px;left:-1px;border-right:none;border-top:none;}
+  .corner.br{bottom:-1px;right:-1px;border-left:none;border-top:none;}
+  .about-text p{color:var(--steel-light); font-size:1.05rem; line-height:1.85; font-weight:300; margin-bottom:24px;}
+  .about-list{margin-top:32px; display:flex; flex-direction:column; gap:22px;}
+  .about-list-item{display:flex; gap:18px; align-items:flex-start;}
+  .about-list-icon{width:42px;height:42px; flex-shrink:0; border:1px solid var(--red); display:flex; align-items:center; justify-content:center;}
+  .about-list-text strong{display:block; font-size:1rem; margin-bottom:4px; color:var(--ink);}
+  .about-list-text span{color:var(--steel); font-size:.92rem; font-weight:300;}
+  .trust-row{display:flex; flex-wrap:wrap; gap:14px; margin-top:36px;}
+  .trust-badge{display:flex; align-items:center; gap:8px; padding:9px 16px; border:1px solid var(--line); font-size:.74rem; letter-spacing:1px; text-transform:uppercase; color:var(--steel-light);}
+  .trust-badge svg{width:16px;height:16px; flex-shrink:0;}
+  .products{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .product-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; margin-top:60px; background:var(--line); transition:opacity .35s ease, transform .35s ease;}
+  .product-grid[hidden]{display:none;}
+  .product-card{background:var(--bg-2); padding:28px 24px; position:relative; overflow:hidden; transition:background .3s; cursor:pointer; display:flex; align-items:center; gap:16px; border:none; width:100%; text-align:left; font:inherit; color:inherit;}
+  .product-card:hover, .product-card:focus-visible{background:#ffffff;}
+  .product-icon-sm{width:36px;height:36px; flex-shrink:0; display:flex; align-items:center; justify-content:center; font-size:2rem; line-height:1;}
+  .product-card-text h3{font-size:1rem; font-weight:600; margin-bottom:4px; color:var(--ink);}
+  .product-card-text p{color:var(--steel); font-size:.78rem; font-weight:300;}
+  .view-layer{opacity:0; transform:translateY(14px); transition:opacity .35s ease, transform .35s ease;}
+  .view-layer.visible{opacity:1; transform:translateY(0);}
+  .view-layer[hidden]{display:none;}
+  .back-btn{display:inline-flex; align-items:center; gap:8px; background:none; border:none; cursor:pointer; color:var(--red); font-size:.8rem; letter-spacing:1.5px; text-transform:uppercase; font-weight:600; margin-bottom:44px; padding:6px 0;}
+  .back-btn:hover{text-decoration:underline;}
+  .detail-badge{font-size:.8rem; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:14px; font-weight:800;}
+  .model-grid{margin-top:60px; display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .model-card{background:var(--bg-2); border:none; width:100%; text-align:left; font:inherit; color:inherit; cursor:pointer; padding:0; display:flex; flex-direction:column; transition:background .3s;}
+  .model-card:hover, .model-card:focus-visible{background:#ffffff;}
+  .model-card-media{aspect-ratio:16/10; background:repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 2px, transparent 2px, transparent 14px), var(--bg-2); display:flex; align-items:center; justify-content:center; position:relative; border-bottom:1px solid var(--line); overflow:hidden;}
+  .model-card-media svg{width:54px;height:54px; opacity:.55;}
+  .model-card-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  .model-card-media .media-count{position:absolute; bottom:10px; right:12px; font-size:.7rem; letter-spacing:1px; color:var(--steel); background:rgba(255,255,255,0.85); padding:3px 8px; text-transform:uppercase;}
+  .model-card-body{padding:22px 22px 26px;}
+  .model-card-body h4{font-size:1.1rem; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .model-card-body p{font-size:.85rem; color:var(--steel); font-weight:300; line-height:1.5;}
+  .model-card-arrow{margin-top:14px; font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--red); font-weight:600; display:flex; align-items:center; gap:6px;}
+  .category-intro{max-width:760px; margin-bottom:10px;}
+  .category-intro h3{font-size:clamp(1.8rem,3vw,2.4rem); font-weight:300; margin-bottom:18px; color:var(--ink);}
+  .category-intro p{color:var(--steel-light); font-size:1.02rem; line-height:1.8; font-weight:300;}
+  .media-gallery{display:flex; flex-direction:column; gap:10px; margin-bottom:48px;}
+  .media-main{aspect-ratio:16/9; max-height:480px; background:repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0, rgba(0,0,0,0.04) 2px, transparent 2px, transparent 14px), var(--bg-2); border:1px solid var(--line); display:flex; flex-direction:column; align-items:center; justify-content:center; gap:14px; position:relative; overflow:hidden;}
+  .media-main svg{width:74px;height:74px; opacity:.5;}
+  .media-main img, .media-main video{position:absolute; inset:0; width:100%; height:100%;}
+  .media-main img{object-fit:contain; background:var(--bg-2);}
+  .media-main video{object-fit:contain; background:#0a0a0a;}
+  .media-main .media-empty-state{position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; gap:14px;}
+  .media-main .media-main-label{font-size:.78rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--steel); font-weight:600;}
+  .media-main .play-badge{position:absolute; top:14px; left:14px; background:var(--red); color:#fff; z-index:2; font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase; padding:5px 10px; font-weight:700;}
+  .media-thumbs{display:flex; flex-wrap:wrap; gap:8px; align-content:start;}
+  .media-thumb{width:84px; height:84px; flex-shrink:0; background:var(--bg-2); border:1px solid var(--line); cursor:pointer; display:flex; align-items:center; justify-content:center; transition:border-color .25s, background .25s; position:relative; overflow:hidden; padding:0;}
+  .media-thumb:hover, .media-thumb:focus-visible{border-color:var(--red); background:#fff;}
+  .media-thumb.active{border-color:var(--red); border-width:2px;}
+  .media-thumb svg{width:22px;height:22px; opacity:.55;}
+  .media-thumb img, .media-thumb video{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;}
+  .thumb-play{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:24px; height:24px; border-radius:50%; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; pointer-events:none;}
+  .thumb-play svg{width:10px; height:10px; opacity:1;}
+  .detail-desc{color:var(--steel-light); font-size:1.05rem; line-height:1.8; font-weight:300; max-width:760px; margin-bottom:32px;}
+  .depliant-layout{display:grid; grid-template-columns:1fr 1fr; gap:48px; align-items:start; margin-bottom:50px;}
+  .depliant-media-col{position:sticky; top:100px;}
+  .depliant-sticky-name{font-size:1.05rem; font-weight:800; color:var(--ink); margin-top:14px; letter-spacing:.2px;}
+  .depliant-sticky-name span{color:var(--red);}
+  .depliant-info-col h3{font-size:clamp(1.6rem,2.6vw,2.1rem); font-weight:800; color:var(--ink); margin-bottom:8px;}
+  .depliant-info-col .detail-desc{margin-bottom:26px;}
+  .depliant-features{list-style:none; display:flex; flex-direction:column; gap:11px; margin-bottom:34px;}
+  .depliant-features li{display:flex; gap:11px; align-items:flex-start; font-size:.92rem; color:var(--steel-light); line-height:1.5; font-weight:300;}
+  .depliant-features li::before{content:''; width:6px; height:6px; margin-top:7px; background:var(--red); flex-shrink:0;}
+  .depliant-specs-title{font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--red); font-weight:600; margin-bottom:14px;}
+  @media(max-width:900px){
+    .depliant-layout{grid-template-columns:1fr; gap:30px;}
+    .depliant-media-col{position:static;}
+  }
+  .detail-table-wrap{overflow-x:auto; margin-bottom:46px; border:1px solid var(--line); background:var(--bg);}
+  .detail-table{width:100%; border-collapse:collapse; min-width:480px;}
+  .detail-table th, .detail-table td{text-align:left; padding:16px 20px; font-size:.92rem; font-weight:300; color:var(--steel-light); border-bottom:1px solid var(--line); white-space:nowrap;}
+  .detail-table td.spec-note{font-style:italic; color:var(--red); white-space:normal; font-weight:400;}
+  .detail-table thead th{background:var(--bg-2); font-size:.74rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--steel); font-weight:600; white-space:normal;}
+  .detail-table tbody th{font-weight:600; color:var(--ink); background:var(--bg-2); width:46%;}
+  .detail-table tbody tr:last-child th, .detail-table tbody tr:last-child td{border-bottom:none;}
+  .detail-cta{font-size:.85rem;}
+  .special{background:var(--bg);}
+  .special-grid{margin-top:60px; display:flex; flex-direction:column; gap:1px; background:var(--line); border:1px solid var(--line);}
+  .special-item{background:var(--bg); display:grid; grid-template-columns:1fr 1.3fr; gap:0; align-items:stretch;}
+  .special-item:nth-child(even){grid-template-columns:1.3fr 1fr;}
+  .special-item:nth-child(even) .special-media{order:2;}
+  .special-media{background:var(--bg-2); min-height:320px; position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;}
+  .special-media img{width:100%; height:100%; object-fit:cover; display:block;}
+  .special-media video{width:100%; height:100%; object-fit:contain; display:block; background:#0a0a0a;}
+  .special-media .special-tag{position:absolute; top:18px; left:18px; background:var(--red); color:#fff; font-size:.68rem; letter-spacing:1.5px; text-transform:uppercase; padding:6px 12px; font-weight:700; z-index:2;}
+  .special-media-swap{position:relative; width:100%; height:100%;}
+  .special-media-swap img, .special-media-swap video{position:absolute; inset:0; width:100%; height:100%; opacity:0; transition:opacity .5s ease;}
+  .special-media-swap img.swap-active, .special-media-swap video.swap-active{opacity:1;}
+  .special-body{padding:46px 50px; display:flex; flex-direction:column; justify-content:center;}
+  .special-body h3{font-size:clamp(1.4rem,2.4vw,1.8rem); font-weight:700; color:var(--ink); margin-bottom:14px;}
+  .special-body p{color:var(--steel-light); font-size:.98rem; line-height:1.75; font-weight:300; margin-bottom:18px;}
+  .special-list{display:flex; flex-wrap:wrap; gap:10px; margin-top:6px;}
+  .special-list span{font-size:.74rem; letter-spacing:.5px; color:var(--steel-light); border:1px solid var(--line); padding:6px 12px;}
+  .special-compare{display:flex; gap:14px; align-items:center; margin-top:18px;}
+  .special-compare .vs-label{font-size:.7rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--red); font-weight:700;}
+  .gallery-sec{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .gallery-filter{display:flex; flex-wrap:wrap; gap:10px; margin:44px 0 10px;}
+  .gallery-filter button{border:1px solid var(--line); background:var(--bg); padding:9px 18px; font-size:.78rem; letter-spacing:1px; text-transform:uppercase; color:var(--steel-light); cursor:pointer; transition:all .25s;}
+  .gallery-filter button:hover{border-color:var(--red); color:var(--red);}
+  .gallery-filter button.active{background:var(--red); border-color:var(--red); color:#fff;}
+  .gallery-grid{display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:14px; margin-top:30px;}
+  .gallery-tile{aspect-ratio:4/3; position:relative; overflow:hidden; background:var(--bg); border:1px solid var(--line); cursor:pointer;}
+  .gallery-tile img, .gallery-tile video{width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s ease;}
+  .gallery-tile:hover img, .gallery-tile:hover video{transform:scale(1.06);}
+  .gallery-tile .tile-label{position:absolute; left:0; right:0; bottom:0; padding:10px 14px; background:linear-gradient(180deg, transparent, rgba(0,0,0,0.65)); color:#fff; font-size:.74rem; letter-spacing:1px; text-transform:uppercase; font-weight:600;}
+  .gallery-tile .tile-play{position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); z-index:2; width:48px; height:48px; border-radius:50%; background:rgba(0,0,0,0.55); display:flex; align-items:center; justify-content:center; pointer-events:none;}
+  .gallery-tile .tile-play svg{width:18px; height:18px;}
+  .gallery-cta-row{margin-top:36px; display:flex; align-items:center; gap:20px; flex-wrap:wrap;}
+  .gallery-count-label{font-size:.85rem; color:var(--steel); letter-spacing:.5px;}
+  .lightbox-overlay{position:fixed; inset:0; z-index:3000; background:rgba(10,10,10,0.92); display:flex; align-items:center; justify-content:center; padding:40px; opacity:0; pointer-events:none; transition:opacity .3s ease;}
+  .lightbox-overlay.active{opacity:1; pointer-events:auto;}
+  .lightbox-overlay img, .lightbox-overlay video{max-width:90vw; max-height:84vh; object-fit:contain; box-shadow:0 30px 80px rgba(0,0,0,0.5); transform:scale(.96); transition:transform .3s ease; background:#000;}
+  .lightbox-overlay.active img, .lightbox-overlay.active video{transform:scale(1);}
+  .lightbox-caption{position:absolute; bottom:28px; left:0; right:0; text-align:center; color:#fff; font-size:.8rem; letter-spacing:1px; text-transform:uppercase; opacity:.8;}
+  .lightbox-close{position:absolute; top:24px; right:5%; background:none; border:1px solid rgba(255,255,255,0.3); color:#fff; width:42px; height:42px; cursor:pointer; font-size:1.3rem; line-height:1; display:flex; align-items:center; justify-content:center; transition:border-color .25s, background .25s;}
+  .lightbox-close:hover{border-color:#fff; background:rgba(255,255,255,0.08);}
+  .lightbox-nav{position:absolute; top:50%; transform:translateY(-50%); background:none; border:1px solid rgba(255,255,255,0.3); color:#fff; width:48px; height:48px; cursor:pointer; font-size:1.4rem; display:flex; align-items:center; justify-content:center; transition:border-color .25s, background .25s;}
+  .lightbox-nav:hover{border-color:#fff; background:rgba(255,255,255,0.08);}
+  .lightbox-nav.prev{left:5%;}
+  .lightbox-nav.next{right:5%;}
+  @media(max-width:700px){.lightbox-nav{display:none;}}
+  .services{background:var(--bg);}
+  .services-grid{margin-top:64px; display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line);}
+  .service-row{background:var(--bg); display:flex; flex-direction:column; gap:16px; padding:32px 28px; align-items:flex-start; transition:background .3s;}
+  .service-row:hover{background:var(--bg-2);}
+  .service-icon{width:50px; height:50px; border:1px solid var(--red); display:flex; align-items:center; justify-content:center; flex-shrink:0;}
+  .service-icon svg{width:26px; height:26px;}
+  .service-body h3{font-size:1.05rem; font-weight:700; color:var(--ink); margin-bottom:8px;}
+  .service-body p{color:var(--steel-light); font-size:.88rem; line-height:1.6; font-weight:300; max-width:760px;}
+  .service-body p + p{margin-top:10px;}
+  .service-highlight{display:inline-flex; align-items:baseline; gap:8px; margin-top:14px; padding:8px 14px; border-left:2px solid var(--red); background:var(--bg-2);}
+  .service-highlight .num{font-size:1.3rem; font-weight:700; color:var(--red);}
+  .service-highlight .lbl{font-size:.74rem; color:var(--steel-light); letter-spacing:.3px;}
+  .service-tags{display:flex; flex-wrap:wrap; gap:8px; margin-top:14px;}
+  .service-tags span{font-size:.68rem; letter-spacing:.3px; color:var(--steel-light); border:1px solid var(--line); padding:5px 10px;}
+  .services-cta{margin-top:50px; display:flex; align-items:center; gap:24px; flex-wrap:wrap;}
+  .services-note{color:var(--steel); font-size:.9rem; font-weight:300; max-width:480px;}
+  @media(max-width:900px){
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:600px){
+    .services-grid{grid-template-columns:1fr;}
+    .service-icon{width:46px; height:46px;}
+    .service-icon svg{width:24px; height:24px;}
+  }
+  .why{background:var(--bg);}
+  .why-grid{display:grid; grid-template-columns:1.1fr 1fr; gap:80px; margin-top:70px;}
+  .why-item{display:flex; gap:26px; padding:30px 0; border-bottom:1px solid var(--line);}
+  .why-item:first-child{padding-top:0;}
+  .why-num{font-size:1rem; font-weight:700; color:var(--red); min-width:40px;}
+  .why-item h3{font-size:1.15rem; font-weight:600; margin-bottom:10px; color:var(--ink);}
+  .why-item p{color:var(--steel); font-size:.92rem; line-height:1.7; font-weight:300;}
+  .why-visual{border:1px solid var(--line); position:relative; overflow:hidden; background:var(--bg-2); display:flex; align-items:center; justify-content:center; min-height:450px;}
+  .gauge{position:relative; width:240px; height:240px;}
+  .gauge svg{width:100%;height:100%;}
+  .gauge-label{position:absolute; inset:0; display:flex; flex-direction:column; align-items:center; justify-content:center;}
+  .gauge-label .n{font-size:2.6rem; font-weight:700; color:var(--ink);}
+  .gauge-label .l{font-size:.75rem; letter-spacing:2px; text-transform:uppercase; color:var(--steel); margin-top:6px;}
+  .sectors{background:var(--bg-2); border-top:1px solid var(--line); border-bottom:1px solid var(--line);}
+  .sector-row{display:flex; flex-wrap:wrap; gap:1px; margin-top:60px; background:var(--line);}
+  .sector-pill{flex:1; min-width:180px; background:var(--bg-2); padding:32px 24px; text-align:center; transition:background .3s;}
+  .sector-pill:hover{background:#ffffff;}
+  .sector-pill .ic{font-size:1.8rem; margin-bottom:14px;}
+  .sector-pill span{font-size:.85rem; letter-spacing:1px; text-transform:uppercase; color:var(--steel-light);}
+  .cta-band{background:linear-gradient(135deg, #1a1a1a, #0a0a0a); text-align:center; padding:110px 5%; position:relative; overflow:hidden;}
+  .cta-band::before{content:''; position:absolute; width:600px;height:600px; border-radius:50%; background:radial-gradient(circle, rgba(200,16,46,0.18), transparent 70%); top:-200px; left:50%; transform:translateX(-50%);}
+  .cta-band h2{font-size:clamp(2rem,4.5vw,3.2rem); font-weight:300; margin-bottom:22px; position:relative; color:#fff;}
+  .cta-band h2 strong{font-weight:700;}
+  .cta-band p{color:#c7c7c7; max-width:520px; margin:0 auto 40px; font-weight:300; position:relative;}
+  .contact{background:var(--bg);}
+  .contact-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:70px;}
+  .contact-info{display:flex; flex-direction:column; gap:34px;}
+  .contact-item h3{font-size:.78rem; letter-spacing:2px; text-transform:uppercase; color:var(--red); margin-bottom:10px;}
+  .contact-item p{font-size:1.05rem; color:var(--steel-light); font-weight:300; line-height:1.6;}
+  .form-group{position:relative; margin-bottom:32px;}
+  .form-group input, .form-group textarea{width:100%; background:transparent; border:none; border-bottom:1px solid var(--line); padding:14px 0 10px; color:var(--ink); font-size:1rem; font-family:inherit; transition:border-color .3s, box-shadow .3s;}
+  .form-group textarea{resize:none; height:90px;}
+  .form-group label{position:absolute; left:0; top:14px; font-size:1rem; color:var(--steel); transition:all .25s ease; pointer-events:none; background:transparent;}
+  .form-group input:focus, .form-group textarea:focus{outline:none; border-color:var(--red); box-shadow:0 1px 0 0 var(--red);}
+  .form-group input:focus ~ label, .form-group input:not(:placeholder-shown) ~ label, .form-group textarea:focus ~ label, .form-group textarea:not(:placeholder-shown) ~ label{top:-14px; font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--red);}
+  .form-file{margin-bottom:32px;}
+  .form-file-label{display:block; font-size:.72rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--steel); margin-bottom:10px;}
+  .form-file input[type="file"]{width:100%; font-size:.9rem; color:var(--steel-light); font-family:inherit; border:1px dashed var(--line); padding:14px; background:var(--bg-2); cursor:pointer;}
+  .form-checkbox{display:flex; align-items:flex-start; gap:12px; margin-bottom:28px; font-size:.85rem; color:var(--steel-light); line-height:1.5;}
+  .form-checkbox input[type="checkbox"]{width:18px; height:18px; margin-top:2px; flex-shrink:0; accent-color:var(--red); cursor:pointer;}
+  .form-checkbox a{color:var(--red); text-decoration:underline; cursor:pointer;}
+  .form-checkbox label{cursor:pointer;}
+  .submit-btn{background:linear-gradient(135deg, var(--red-bright), var(--red)); color:#fff; padding:16px 40px; font-size:.85rem; letter-spacing:2px; text-transform:uppercase; border:none; cursor:pointer; font-weight:600; margin-top:10px; transition:all .3s;}
+  .submit-btn:hover{transform:translateY(-3px); box-shadow:0 16px 40px rgba(200,16,46,0.3);}
+  .form-msg{margin-top:16px; font-size:.85rem; color:var(--red);}
+  .careers{background:var(--bg-2); border-top:1px solid var(--line);}
+  .careers-grid{display:grid; grid-template-columns:1fr 1fr; gap:80px; margin-top:70px; align-items:start;}
+  .careers-info p{color:var(--steel-light); font-size:1.02rem; line-height:1.8; font-weight:300; margin-bottom:20px;}
+  .careers-perks{display:flex; flex-direction:column; gap:16px; margin-top:10px;}
+  .careers-perk{display:flex; gap:14px; align-items:flex-start; font-size:.92rem; color:var(--steel-light); font-weight:300;}
+  .careers-perk strong{color:var(--ink); font-weight:600;}
+  footer{border-top:1px solid var(--line); padding:50px 5% 30px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:20px; color:var(--steel); font-size:.82rem;}
+  .footer-links{display:flex;gap:30px;}
+  .reveal{opacity:0; transform:translateY(40px); transition:opacity .8s ease, transform .8s ease;}
+  .reveal.visible{opacity:1; transform:translateY(0);}
+  @media(max-width:900px){
+    .nav-links{display:flex; position:fixed; top:78px; right:5%; flex-direction:column; background:rgba(255,255,255,0.97); padding:26px; border:1px solid var(--line); gap:20px; opacity:0; transform:translateY(-12px); pointer-events:none; transition:opacity .3s ease, transform .3s ease; box-shadow:0 18px 40px rgba(0,0,0,0.1);}
+    .nav-links.active{opacity:1; transform:translateY(0); pointer-events:auto;}
+    .burger{display:flex;}
+    .about-grid, .why-grid, .contact-grid, .careers-grid{grid-template-columns:1fr; gap:50px;}
+    .product-grid{grid-template-columns:1fr 1fr;}
+    .hero-machine{display:none;}
+    .stats{flex-direction:column;}
+    .stat{border-right:none; border-bottom:1px solid var(--line);}
+    .special-item, .special-item:nth-child(even){grid-template-columns:1fr;}
+    .special-item:nth-child(even) .special-media{order:0;}
+    .special-media{min-height:240px;}
+    .special-body{padding:34px 28px;}
+    .services-grid{grid-template-columns:repeat(2,1fr);}
+  }
+  @media(max-width:600px){
+    .product-grid{grid-template-columns:1fr;}
+    .gallery-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+    .media-thumb{width:70px; height:70px;}
+    .services-grid{grid-template-columns:1fr;}
+  }
+  #introOverlay{position:fixed; inset:0; z-index:5000; background:#ffffff; display:flex; align-items:center; justify-content:center; transition:background-color .5s ease; cursor:pointer;}
+  #introOverlay.fade-bg{background:rgba(255,255,255,0);}
+  #introOverlay.intro-hidden{display:none;}
+  .intro-stage{position:relative; width:300px; max-width:72vw; transition:transform .65s cubic-bezier(.4,0,.2,1), opacity .4s ease;}
+  .intro-stage.morphing{will-change:transform;}
+  .intro-word{position:absolute; top:-30px; font-size:.68rem; font-weight:700; letter-spacing:2.5px; text-transform:uppercase; color:var(--red); opacity:0; white-space:nowrap; transition:opacity .5s ease;}
+  .intro-word.show{opacity:1;}
+  .intro-word-i{left:13%; transform:translateX(-50%);}
+  .intro-word-c{left:50%; transform:translateX(-50%);}
+  .intro-word-s{left:85%; transform:translateX(-50%);}
+  @media (prefers-reduced-motion: reduce){
+    #introOverlay{display:none !important;}
+  }
+  @media(max-width:480px){
+    .intro-word{font-size:.6rem; letter-spacing:1.8px;}
+  }
+  .privacy-modal-overlay{position:fixed; inset:0; z-index:4000; background:rgba(10,10,10,0.6); display:flex; align-items:center; justify-content:center; padding:30px; opacity:0; pointer-events:none; transition:opacity .3s ease;}
+  .privacy-modal-overlay.active{opacity:1; pointer-events:auto;}
+  .privacy-modal{background:var(--bg); max-width:760px; width:100%; max-height:85vh; overflow-y:auto; position:relative; transform:translateY(20px) scale(.98); transition:transform .3s ease; box-shadow:0 30px 80px rgba(0,0,0,0.3); border-top:4px solid var(--red);}
+  .privacy-modal-overlay.active .privacy-modal{transform:translateY(0) scale(1);}
+  .privacy-modal-inner{padding:50px 56px 46px;}
+  .privacy-modal-close{position:absolute; top:18px; right:18px; background:none; border:1px solid var(--line); color:var(--steel-light); width:38px; height:38px; cursor:pointer; font-size:1.2rem; line-height:1; display:flex; align-items:center; justify-content:center; transition:border-color .25s, color .25s; z-index:2;}
+  .privacy-modal-close:hover{border-color:var(--red); color:var(--red);}
+  .privacy-modal h2{font-size:1.6rem; font-weight:700; color:var(--ink); margin-bottom:6px;}
+  .privacy-modal .pm-updated{font-size:.78rem; letter-spacing:1px; text-transform:uppercase; color:var(--steel); margin-bottom:30px;}
+  .privacy-modal h3{font-size:1.02rem; font-weight:700; color:var(--red); margin-top:30px; margin-bottom:10px; letter-spacing:.2px;}
+  .privacy-modal h3:first-of-type{margin-top:0;}
+  .privacy-modal p{font-size:.92rem; line-height:1.75; color:var(--steel-light); font-weight:300; margin-bottom:12px;}
+  .privacy-modal ul{margin:0 0 12px 0; padding-left:20px;}
+  .privacy-modal li{font-size:.92rem; line-height:1.7; color:var(--steel-light); font-weight:300; margin-bottom:6px;}
+  .privacy-modal strong{color:var(--ink); font-weight:600;}
+  .privacy-modal table{width:100%; border-collapse:collapse; margin:10px 0 16px; font-size:.85rem;}
+  .privacy-modal table th, .privacy-modal table td{text-align:left; padding:10px 12px; border:1px solid var(--line); font-weight:300; color:var(--steel-light); vertical-align:top;}
+  .privacy-modal table th{background:var(--bg-2); font-weight:600; color:var(--ink); font-size:.78rem; letter-spacing:.5px; text-transform:uppercase;}
+  @media(max-width:600px){
+    .privacy-modal-inner{padding:60px 26px 36px;}
+  }
+</style>
+</head>
+<body>
+
+<div id="introOverlay" role="presentation" aria-hidden="true">
+  <div class="intro-stage" id="introStage">
+    <div class="intro-word intro-word-i" id="introWordI">Innovation</div>
+    <div class="intro-word intro-word-c" id="introWordC">Creates</div>
+    <div class="intro-word intro-word-s" id="introWordS">Solutions</div>
+
+    <svg viewBox="0 0 373 300" width="300" id="introSvg" focusable="false">
+      <rect x="7" y="4" width="359" height="226" rx="24" ry="24" fill="none" stroke="#171717" stroke-width="4" id="introBox" pathLength="1000" stroke-dasharray="1000" stroke-dashoffset="1000"/>
+
+      <clipPath id="introClipI"><rect x="0" y="0" width="0" height="234"/></clipPath>
+      <clipPath id="introClipC"><rect x="106" y="0" width="0" height="234"/></clipPath>
+      <clipPath id="introClipS"><rect x="229" y="0" width="0" height="234"/></clipPath>
+
+      <g clip-path="url(#introClipI)"><g transform="translate(46.000 35.000) scale(0.19051 0.23652) translate(-39.551 721.191)"><path d="M294.92 0L39.55 0L39.55-61.52L119.14-75.20L119.14-635.25L39.55-648.93L39.55-710.94L294.92-710.94L294.92-648.93L215.33-635.25L215.33-75.20L294.92-61.52L294.92 0Z" fill="#d4202a"></path></g></g>
+      <g clip-path="url(#introClipC)"><g transform="translate(46.000 35.000) scale(0.19051 0.23652) translate(-39.551 721.191)"><path d="M695.31 10.25L695.31 10.25Q588.38 10.25 516.85-36.62Q445.31-83.50 409.42-165.04Q373.54-246.58 373.54-350.10L373.54-350.10L373.54-360.35Q373.54-464.84 411.13-546.14Q448.73-627.44 519.04-674.32Q589.36-721.19 687.01-721.19L687.01-721.19Q755.86-721.19 812.99-699.71Q870.12-678.22 907.71-645.02L907.71-645.02L907.71-491.70L831.05-491.70L820.80-604.00Q805.18-616.21 784.91-624.51Q764.65-632.81 739.99-637.21Q715.33-641.60 686.52-641.60L686.52-641.60Q616.70-641.60 568.36-605.71Q520.02-569.82 495.12-506.84Q470.21-443.85 470.21-361.33L470.21-361.33L470.21-350.10Q470.21-260.74 496.83-197.51Q523.44-134.28 574.46-101.07Q625.49-67.87 698.73-67.87L698.73-67.87Q732.91-67.87 765.63-76.17Q798.34-84.47 819.82-97.66L819.82-97.66L830.57-196.78L905.76-196.78L905.76-42.48Q865.72-17.58 810.06-3.66Q754.39 10.25 695.31 10.25Z" fill="#d4202a"></path></g></g>
+      <g clip-path="url(#introClipS)"><g transform="translate(46.000 35.000) scale(0.19051 0.23652) translate(-39.551 721.191)"><path d="M1260.25 10.25L1260.25 10.25Q1195.31 10.25 1135.25-8.79Q1075.20-27.83 1020.51-67.38L1020.51-67.38L1020.51-219.24L1095.21-219.24L1111.33-107.42Q1143.07-87.89 1180.18-77.15Q1217.29-66.41 1260.25-66.41L1260.25-66.41Q1309.08-66.41 1343.02-81.30Q1376.95-96.19 1395.02-122.56Q1413.09-148.93 1413.09-184.08L1413.09-184.08Q1413.09-216.80 1397.46-241.70Q1381.84-266.60 1345.95-285.40Q1310.06-304.20 1248.05-318.36L1248.05-318.36Q1174.80-335.45 1124.27-364.01Q1073.73-392.58 1047.61-433.35Q1021.48-474.12 1021.48-526.86L1021.48-526.86Q1021.48-582.52 1051.03-626.46Q1080.57-670.41 1133.30-695.80Q1186.04-721.19 1256.35-721.19L1256.35-721.19Q1331.05-721.19 1388.43-698.49Q1445.80-675.78 1482.91-643.55L1482.91-643.55L1482.91-501.46L1408.20-501.46L1392.09-603.03Q1370.12-620.61 1337.40-632.32Q1304.69-644.04 1256.35-644.04L1256.35-644.04Q1215.33-644.04 1184.08-629.64Q1152.83-615.23 1135.25-589.36Q1117.68-563.48 1117.68-528.32L1117.68-528.32Q1117.68-497.56 1133.54-474.61Q1149.41-451.66 1185.30-434.33Q1221.19-416.99 1281.25-401.86L1281.25-401.86Q1393.55-374.02 1451.42-319.58Q1509.28-265.14 1509.28-185.06L1509.28-185.06Q1509.28-127.93 1478.52-83.74Q1447.75-39.55 1391.85-14.65Q1335.94 10.25 1260.25 10.25Z" fill="#d4202a"></path></g></g>
+
+      <rect x="20" y="108" width="0" height="24" fill="#ffffff" id="introArrowMask"/>
+      <line x1="26" y1="120" x2="26" y2="120" stroke="#171717" stroke-width="6" id="introLine"/>
+      <g id="introArrowHead" transform="translate(26,120)" opacity="0">
+        <polygon points="20,0 -1,-11 -1,11" fill="#171717"/>
+      </g>
+
+      <g id="introAutomazione" opacity="0" transform="translate(11.500 250.000) scale(0.04723 0.05634) translate(-5.000 698.000)">
+        <path d="M139 0L5 0L272-686L436-686L704 0L563 0L508-146L194-146L139 0ZM304-442L235-256L466-256L397-442Q393-452 387.50-467.50Q382-483 376-501.50Q370-520 364-539Q358-558 353-573L353-573L348-573Q342-553 333.50-527Q325-501 317-478Q309-455 304-442L304-442ZM1055 12L1055 12Q965 12 900-17Q835-46 800.50-105.50Q766-165 766-254L766-254L766-686L896-686L896-258Q896-179 937.50-138.50Q979-98 1055-98L1055-98Q1131-98 1173.50-138.50Q1216-179 1216-258L1216-258L1216-686L1346-686L1346-254Q1346-165 1311-105.50Q1276-46 1211-17Q1146 12 1055 12ZM1792 0L1662 0L1662-574L1443-574L1443-686L2012-686L2012-574L1792-574L1792 0ZM2403 12L2403 12Q2296 12 2218-26.50Q2140-65 2098.50-144Q2057-223 2057-343L2057-343Q2057-464 2098.50-542.50Q2140-621 2218-659.50Q2296-698 2403-698L2403-698Q2511-698 2588.50-659.50Q2666-621 2707.50-542.50Q2749-464 2749-343L2749-343Q2749-223 2707.50-144Q2666-65 2588.50-26.50Q2511 12 2403 12ZM2403-98L2403-98Q2455-98 2494.50-113Q2534-128 2561-157.50Q2588-187 2602-230.50Q2616-274 2616-331L2616-331L2616-353Q2616-411 2602-455Q2588-499 2561-528.50Q2534-558 2494.50-573Q2455-588 2403-588L2403-588Q2351-588 2311.50-573Q2272-558 2245-528.50Q2218-499 2204.50-455Q2191-411 2191-353L2191-353L2191-331Q2191-274 2204.50-230.50Q2218-187 2245-157.50Q2272-128 2311.50-113Q2351-98 2403-98ZM2995 0L2870 0L2870-686L3075-686L3183-304Q3189-284 3195-259Q3201-234 3206.50-211Q3212-188 3215-171L3215-171L3223-171Q3225-186 3229-208Q3233-230 3238.50-255.50Q3244-281 3251-305L3251-305L3359-686L3562-686L3562 0L3432 0L3432-347Q3432-393 3433-439Q3434-485 3435.50-518Q3437-551 3437-557L3437-557L3429-557Q3427-548 3419-518Q3411-488 3402-453Q3393-418 3386-393L3386-393L3273 0L3153 0L3040-392Q3034-413 3026.50-442.50Q3019-472 3011.50-503Q3004-534 2998-557L2998-557L2990-557Q2991-530 2992-492.50Q2993-455 2994-416.50Q2995-378 2995-347L2995-347L2995 0ZM3777 0L3643 0L3910-686L4074-686L4342 0L4201 0L4146-146L3832-146L3777 0ZM3942-442L3873-256L4104-256L4035-442Q4031-452 4025.50-467.50Q4020-483 4014-501.50Q4008-520 4002-539Q3996-558 3991-573L3991-573L3986-573Q3980-553 3971.50-527Q3963-501 3955-478Q3947-455 3942-442L3942-442ZM4944 0L4376 0L4376-62L4742-575L4402-575L4402-686L4935-686L4935-623L4569-111L4944-111L4944 0ZM5187 0L5057 0L5057-686L5187-686L5187 0ZM5654 12L5654 12Q5547 12 5469-26.50Q5391-65 5349.50-144Q5308-223 5308-343L5308-343Q5308-464 5349.50-542.50Q5391-621 5469-659.50Q5547-698 5654-698L5654-698Q5762-698 5839.50-659.50Q5917-621 5958.50-542.50Q6000-464 6000-343L6000-343Q6000-223 5958.50-144Q5917-65 5839.50-26.50Q5762 12 5654 12ZM5654-98L5654-98Q5706-98 5745.50-113Q5785-128 5812-157.50Q5839-187 5853-230.50Q5867-274 5867-331L5867-331L5867-353Q5867-411 5853-455Q5839-499 5812-528.50Q5785-558 5745.50-573Q5706-588 5654-588L5654-588Q5602-588 5562.50-573Q5523-558 5496-528.50Q5469-499 5455.50-455Q5442-411 5442-353L5442-353L5442-331Q5442-274 5455.50-230.50Q5469-187 5496-157.50Q5523-128 5562.50-113Q5602-98 5654-98ZM6246 0L6121 0L6121-686L6245-686L6538-281Q6543-275 6550-264.50Q6557-254 6563-244Q6569-234 6571-228L6571-228L6576-228Q6576-242 6576-255Q6576-268 6576-281L6576-281L6576-686L6701-686L6701 0L6578 0L6284-408Q6276-420 6265.50-437.50Q6255-455 6251-462L6251-462L6246-462Q6246-449 6246-435.50Q6246-422 6246-408L6246-408L6246 0ZM7394 0L6853 0L6853-686L7388-686L7388-575L6983-575L6983-406L7344-406L7344-295L6983-295L6983-111L7394-111L7394 0Z" fill="#121212"></path>
+      </g>
+    </svg>
+  </div>
+</div>
+
+<a href="#main" class="skip-link">Salta al contenuto principale</a>
+
+<nav>
+  <button class="logo" id="logoHomeBtn" type="button" aria-label="Torna all'inizio della pagina">
+    <img src="https://i.imgur.com/EI63C7i.png" alt="ICS Automazione" onerror="this.style.display='none'; document.querySelector('.logo-text').style.display='block';">
+    <div class="logo-text" style="display:none;">ICS AUTOMAZIONE</div>
+  </button>
+  <div class="nav-links" id="navLinks">
+    <a href="#about" data-i18n="nav.about">Azienda</a>
+    <a href="#products" class="nav-products-link" data-i18n="nav.products">Macchine</a>
+    <a href="#services" data-i18n="nav.services">Servizi</a>
+    <a href="#special" data-i18n="nav.special">Progetti</a>
+    <a href="#gallery-section" data-i18n="nav.gallery">Galleria</a>
+    <a href="#careers" data-i18n="nav.careers">Lavora con Noi</a>
+    <a href="#contact" data-i18n="nav.contact">Contatti</a>
+    <div class="lang-switch">
+      <button class="lang-btn active" id="langIt" type="button" aria-label="Italiano" aria-pressed="true">
+        <svg viewBox="0 0 3 2"><rect width="1" height="2" x="0" fill="#009246"/><rect width="1" height="2" x="1" fill="#fff"/><rect width="1" height="2" x="2" fill="#ce2b37"/></svg>
+      </button>
+      <button class="lang-btn" id="langEn" type="button" aria-label="English" aria-pressed="false">
+        <svg viewBox="0 0 60 30"><rect width="60" height="30" fill="#012169"/><path d="M0,0 60,30M60,0 0,30" stroke="#fff" stroke-width="6"/><path d="M0,0 60,30M60,0 0,30" stroke="#C8102E" stroke-width="2"/><path d="M30,0 30,30M0,15 60,15" stroke="#fff" stroke-width="10"/><path d="M30,0 30,30M0,15 60,15" stroke="#C8102E" stroke-width="6"/></svg>
+      </button>
+    </div>
+  </div>
+  <button class="burger" id="burgerBtn" aria-label="Apri menu di navigazione" aria-expanded="false" aria-controls="navLinks">
+    <div></div><div></div><div></div>
+  </button>
+</nav>
+
+<main id="main">
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <img class="hero-machine" src="https://i.imgur.com/EI63C7i.png" alt="ICS Automazione" loading="eager" decoding="async">
+  <div class="hero-content">
+    <div class="hero-tag" data-i18n="hero.tag">Engineering &amp; Manufacturing · Dal 2005</div>
+    <h1 data-i18n-html="hero.title">Precisione italiana.<strong>Automazione d'eccellenza.</strong></h1>
+    <p data-i18n="hero.desc">Costruttori di macchine automatiche per l'industria farmaceutica, cosmetica e alimentare. Soluzioni integrate condivise con il cliente per l'intero processo di confezionamento, dal packaging primario al secondario.</p>
+    <div class="hero-buttons">
+      <a href="#products" class="btn-primary nav-products-link" data-i18n="hero.cta1">Scopri le Macchine</a>
+      <a href="#contact" class="btn-outline" data-i18n="hero.cta2">Contattaci</a>
+    </div>
+  </div>
+</section>
+
+<div class="stats">
+  <div class="stat"><div class="stat-num"><span>20</span>+</div><div class="stat-label" data-i18n="stats.years">Anni di esperienza dal 2005</div></div>
+  <div class="stat"><div class="stat-num">100<span>%</span></div><div class="stat-label" data-i18n="stats.madeinitaly">Made in Italy</div></div>
+  <div class="stat"><div class="stat-num">cGMP</div><div class="stat-label" data-i18n="stats.cgmp">Standard farmaceutici</div></div>
+</div>
+
+<div class="photo-band" role="img" aria-label="Galleria fotografica dello stabilimento e delle macchine ICS Automazione in scorrimento continuo">
+  <div class="photo-band-track" id="photoBandTrack"></div>
+  <div class="photo-band-caption" data-i18n="hero.bandcaption">Dallo stabilimento di Castel San Pietro Terme</div>
+</div>
+
+<section class="about" id="about">
+  <div class="section-head"><div class="section-tag" data-i18n="about.tag">Chi Siamo</div></div>
+  <h2 class="section-title" data-i18n-html="about.title">La cura per il dettaglio <strong>al servizio della produzione</strong></h2>
+  <p class="section-sub" data-i18n="about.sub">Fondata nel 2005, ICS Automazione è costruttrice di macchine automatiche per l'industria farmaceutica, cosmetica e alimentare, con sede a Castel San Pietro Terme, nel cuore della "Italian Packaging Valley".</p>
+
+  <div class="about-grid">
+    <div class="about-visual reveal">
+      <div class="corner tl"></div><div class="corner tr"></div><div class="corner bl"></div><div class="corner br"></div>
+      <img src="https://i.imgur.com/XbcvtV3.jpeg" alt="Macchina automatica ICS Automazione in produzione" loading="lazy">
+    </div>
+    <div class="about-text reveal">
+      <p data-i18n="about.p1">Siamo specializzati in macchine blisteratrici per prodotti solidi, con soluzioni integrate condivise con il cliente per l'intero processo di confezionamento. Il nostro obiettivo principale è fornire macchine solide e robuste, con tassi di prestazione elevati.</p>
+      <p data-i18n="about.p2">I nostri uffici e il reparto di montaggio si trovano a Castel San Pietro Terme, Bologna. Siamo presenti con delegazioni in diversi paesi per soddisfare più da vicino le esigenze dei nostri clienti, e tramite la nostra rete di stimati fornitori locali garantiamo che le nostre macchine sono al 100% Made in Italy.</p>
+      <div class="about-list">
+        <div class="about-list-item">
+          <div class="about-list-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M3 19 L13 9 L16 12 L6 22 Z" stroke="#c8102e" stroke-width="1.3"/><path d="M13 9 L16 6 L19 9 L16 12 Z" stroke="#c8102e" stroke-width="1.3"/><path d="M2 20 L2 22 L4 22" stroke="#c8102e" stroke-width="1.3"/><path d="M5 4 L18 4 L18 14 M5 4 L5 14 L11 14" stroke="#6b6b6b" stroke-width="1"/></svg>
+          </div>
+          <div class="about-list-text"><strong data-i18n="about.list1.t">Progettazione Custom</strong><span data-i18n="about.list1.d">Macchine sviluppate su specifiche esigenze del cliente</span></div>
+        </div>
+        <div class="about-list-item">
+          <div class="about-list-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M8 2 L8 9 L4 17 a2 2 0 0 0 2 3 L13 20 a2 2 0 0 0 2 -3 L11 9 L11 2" stroke="#c8102e" stroke-width="1.3"/><path d="M6.5 2 L12.5 2" stroke="#c8102e" stroke-width="1.3"/><circle cx="9.5" cy="16" r="1.3" fill="#c8102e"/><path d="M17 4 L17 12" stroke="#6b6b6b" stroke-width="1"/><circle cx="17" cy="14" r="2" stroke="#6b6b6b" stroke-width="1"/></svg>
+          </div>
+          <div class="about-list-text"><strong data-i18n="about.list2.t">Standard Farmaceutici</strong><span data-i18n="about.list2.d">Conformità cGMP per il settore pharma</span></div>
+        </div>
+        <div class="about-list-item">
+          <div class="about-list-icon">
+            <svg width="22" height="22" viewBox="0 0 22 22" fill="none" aria-hidden="true"><path d="M6 9 a5 5 0 0 1 10 0 v3 a5 5 0 0 1 -10 0 Z" stroke="#c8102e" stroke-width="1.3"/><path d="M3 9 v2 a8 8 0 0 0 16 0 v-2" stroke="#6b6b6b" stroke-width="1"/><path d="M11 19 L11 21" stroke="#6b6b6b" stroke-width="1"/><circle cx="11" cy="6" r="1" fill="#c8102e"/></svg>
+          </div>
+          <div class="about-list-text"><strong data-i18n="about.list3.t">Assistenza Continua</strong><span data-i18n="about.list3.d">Supporto dei nostri tecnici su tutte le linee installate</span></div>
+        </div>
+      </div>
+
+      <div class="trust-row">
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M12 2 L20 6 V12 C20 17 16.5 20.5 12 22 C7.5 20.5 4 17 4 12 V6 Z" stroke="#c8102e" stroke-width="1.4"/><path d="M9 12 l2 2 l4 -5" stroke="#c8102e" stroke-width="1.4"/></svg>
+          <span data-i18n="about.badge1">Green Cloud Certified</span>
+        </div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="#c8102e" stroke-width="1.4"/><path d="M12 3 C12 3 8 7 8 12 C8 17 12 21 12 21" stroke="#c8102e" stroke-width="1.4"/><path d="M3 12 H21" stroke="#c8102e" stroke-width="1.4"/></svg>
+          <span data-i18n="about.badge2">Hosting Sostenibile · Energia Solare</span>
+        </div>
+        <div class="trust-badge">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2" stroke="#c8102e" stroke-width="1.4"/><path d="M7 13 l3 3 l7 -8" stroke="#c8102e" stroke-width="1.4"/></svg>
+          <span data-i18n="about.badge3">FDA Compliant AISI 316L</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="products" id="products">
+  <div class="section-head"><div class="section-tag" data-i18n="products.tag">Le Macchine</div></div>
+  <h2 class="section-title" data-i18n-html="products.title">Una gamma completa per <strong>ogni esigenza di confezionamento</strong></h2>
+  <p class="section-sub" data-i18n="products.sub">Ogni categoria racchiude più modelli, ciascuno con la propria galleria media e scheda tecnica dedicata. Seleziona una categoria per iniziare.</p>
+
+  <div class="product-grid view-layer visible" id="productGrid">
+    <button class="product-card reveal" type="button" data-product="blisteratrici" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">💊</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.blisteratrici.h">Blisteratrici</h3><p>XP · X1 · X8 · X2 · X3</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="termoformatrici" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🧊</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.termoformatrici.h">Termoformatrici</h3><p>R1 · R4</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="cartonatrici" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">📦</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.astucciatrici.h">Astucciatrici</h3><p>A1 · A2 · A3</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="deblisteratrici" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🔄</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.deblisteratrici.h">Deblisteratrici</h3><p>DBM · C2 · C3 · C4 · C6 · C7</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="contatrici" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🔢</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.contatrici.h">Contatrici</h3><p>Abaco · G1</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="casepacker" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🗳️</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.cartonatrici.h">Cartonatrici</h3><p>F16 · F18</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="tracktrace" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🔍</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.tracktrace.h">Track &amp; Trace</h3><p data-i18n="pcard.tracktrace.p">Serializzazione</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="overhauling" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">🛠️</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.overhauling.h">Overhauling</h3><p>&amp; Revamping</p></div>
+    </button>
+
+    <button class="product-card reveal" type="button" data-product="custom" aria-controls="productDetail">
+      <span class="product-icon-sm" aria-hidden="true">⚙️</span>
+      <div class="product-card-text"><h3 data-i18n="pcard.custom.h">Custom &amp; Service</h3><p data-i18n="pcard.custom.p">Su misura</p></div>
+    </button>
+  </div>
+
+  <div class="view-layer" id="modelList" hidden>
+    <button class="back-btn" id="backToOverview" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="btn.backoverview">Torna alla panoramica</span></button>
+    <div class="category-intro" id="categoryIntro"></div>
+    <div class="model-grid" id="modelGrid"></div>
+  </div>
+
+  <div class="view-layer" id="productDetail" hidden>
+    <button class="back-btn" id="backToModelList" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="btn.backmodels">Torna ai modelli</span></button>
+    <div class="product-detail-content" id="productDetailContent"></div>
+  </div>
+</section>
+
+<section class="services" id="services">
+  <div class="section-head"><div class="section-tag" data-i18n="services.tag">Servizi</div></div>
+  <h2 class="section-title" data-i18n-html="services.title">Non costruiamo solo macchine: <strong>le accompagniamo per tutta la loro vita produttiva</strong></h2>
+  <p class="section-sub" data-i18n="services.sub">Oltre alla progettazione e costruzione delle macchine, offriamo un servizio tecnico completo dedicato ai formati e alle parti a contatto prodotto delle linee blister: dal design su misura degli stampi alla manutenzione programmata, fino alla razionalizzazione dei formati per ridurre i costi di gestione.</p>
+
+  <div class="services-grid">
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="6" y="6" width="28" height="28" rx="1" stroke="#c8102e" stroke-width="1.5"/><path d="M6 16 h28 M16 6 v10 M6 26 h28 M24 26 v8" stroke="#6b6b6b" stroke-width="1.2"/><circle cx="11" cy="11" r="1.6" fill="#c8102e"/><circle cx="29" cy="21" r="1.6" fill="#c8102e"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s1.h">Parti a Formato per Blister</h3>
+        <p data-i18n="services.s1.p">Progettiamo su misura le parti di formato per blisteratrici, ottimizzate per ogni materiale — Aclar, PVC, PVDC, PP, PET, COC — con risultati eccellenti anche nella formatura a freddo ALU/ALU.</p>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="5" y="12" width="30" height="18" rx="2" stroke="#c8102e" stroke-width="1.5"/><line x1="11" y1="18" x2="29" y2="18" stroke="#6b6b6b" stroke-width="1.2"/><line x1="11" y1="24" x2="29" y2="24" stroke="#6b6b6b" stroke-width="1.2"/><circle cx="14" cy="34" r="2.4" stroke="#c8102e" stroke-width="1.3"/><circle cx="26" cy="34" r="2.4" stroke="#c8102e" stroke-width="1.3"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s2.h">Formati per Ogni Costruttore</h3>
+        <p data-i18n="services.s2.p">Parti a formato compatibili con le macchine blister di tutti i principali costruttori, in qualsiasi materiale di copertura: alluminio crudo, ricotto, complesso carta/alluminio.</p>
+        <div class="service-tags">
+          <span data-i18n="services.s2.t1">Piastre</span>
+          <span data-i18n="services.s2.t2">Alimentazione</span>
+          <span data-i18n="services.s2.t3">Saldatura</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="13" stroke="#c8102e" stroke-width="1.5"/><path d="M20 7 v4 M20 29 v4 M7 20 h4 M29 20 h4" stroke="#6b6b6b" stroke-width="1.2"/><circle cx="20" cy="20" r="4" fill="#c8102e"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s3.h">Sistemi di Alimentazione</h3>
+        <p data-i18n="services.s3.p">Sistemi dedicati a ogni tipologia di prodotto, capaci di operare con precisione e costanza anche ad alti volumi produttivi.</p>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><path d="M6 28 L14 12 L20 22 L24 16 L34 28 Z" stroke="#c8102e" stroke-width="1.5"/><circle cx="14" cy="12" r="2" fill="#6b6b6b"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s4.h">Layout e Progettazione Blister</h3>
+        <p data-i18n="services.s4.p">Studio del layout blister considerando vincoli macchina, alimentazione, materiale e forma prodotto, per la massima resa produttiva.</p>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><rect x="6" y="6" width="11" height="11" stroke="#c8102e" stroke-width="1.5"/><rect x="23" y="6" width="11" height="11" stroke="#6b6b6b" stroke-width="1.5"/><rect x="6" y="23" width="11" height="11" stroke="#6b6b6b" stroke-width="1.5"/><rect x="23" y="23" width="11" height="11" stroke="#c8102e" stroke-width="1.5"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s5.h">Razionalizzazione Formati</h3>
+        <p data-i18n="services.s5.p">Standardizziamo i formati blister tra prodotti diversi, per un cambio formato più rapido e una gestione ricambi semplificata.</p>
+        <div class="service-highlight"><span class="num">75%</span><span class="lbl" data-i18n="services.s5.highlight">risparmio potenziale sui costi di gestione formati</span></div>
+      </div>
+    </div>
+
+    <div class="service-row reveal">
+      <div class="service-icon">
+        <svg viewBox="0 0 40 40" fill="none" aria-hidden="true"><circle cx="20" cy="20" r="14" stroke="#c8102e" stroke-width="1.5"/><path d="M20 11 v9 l6 4" stroke="#6b6b6b" stroke-width="1.4" stroke-linecap="round"/></svg>
+      </div>
+      <div class="service-body">
+        <h3 data-i18n="services.s6.h">Assistenza Post-Vendita</h3>
+        <p data-i18n="services.s6.p">Manutenzione programmata, rigenerazione gruppi trancia plug &amp; play e analisi OEE per ottimizzare l'intero processo di packaging.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="services-cta">
+    <a href="#contact" class="btn-primary" data-i18n="services.cta">Richiedi Assistenza</a>
+    <span class="services-note" data-i18n="services.note">Per richieste su formati, ricambi o manutenzione programmata, contatta direttamente il nostro reparto tecnico.</span>
+  </div>
+</section>
+
+<section class="special" id="special">
+  <div class="section-head"><div class="section-tag" data-i18n="special.tag">Progetti Speciali</div></div>
+  <h2 class="section-title" data-i18n-html="special.title">Oltre lo standard: <strong>soluzioni costruite su misura</strong></h2>
+  <p class="section-sub" data-i18n="special.sub">Accanto alla gamma di macchine a catalogo, progettiamo linee complete e interventi su richiesta specifica del cliente. Ecco due esempi recenti del nostro lavoro.</p>
+
+  <div class="special-grid">
+    <div class="special-item reveal">
+      <div class="special-media">
+        <span class="special-tag" data-i18n="special.p1.tag">Linea Completa</span>
+        <img src="https://i.imgur.com/wPYGHhA.jpeg" alt="Linea completa di packaging primario e secondario ICS Automazione installata in sala bianca">
+      </div>
+      <div class="special-body">
+        <h3 data-i18n="special.p1.h">Linea Completa per il Packaging — Il Progetto Più Recente</h3>
+        <p data-i18n="special.p1.p">Una linea integrata che unisce packaging primario e secondario in un unico impianto: dalla formatura del blister ALU/ALU al confezionamento finale in cartone, con stazioni di controllo qualità e tracciabilità lungo tutto il percorso.</p>
+        <div class="special-list">
+          <span data-i18n="special.p1.t1">Blisteratrice ALU/ALU</span>
+          <span data-i18n="special.p1.t2">Gruppo di microdosaggio</span>
+          <span data-i18n="special.p1.t3">Assemblaggio dispositivi medici</span>
+          <span data-i18n="special.p1.t4">Termoformatrice profonda per cassonetti</span>
+          <span data-i18n="special.p1.t5">Astucciatrice</span>
+          <span data-i18n="special.p1.t6">Track &amp; Trace</span>
+          <span data-i18n="special.p1.t7">Cartonatrice</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="special-item reveal">
+      <div class="special-media">
+        <span class="special-tag" data-i18n="special.p2.tag">Biomiscellazione</span>
+        <div class="special-media-swap" id="biomixerSwap">
+          <video class="swap-active" id="biomixerVideo" muted playsinline preload="metadata" aria-label="Biomiscellatore ICS Automazione in funzione"></video>
+          <img id="biomixerImg" src="https://i.imgur.com/zZGImg3.jpeg" alt="Biomiscellatore ICS Automazione, dettaglio del gruppo di miscelazione">
+        </div>
+      </div>
+      <div class="special-body">
+        <h3 data-i18n="special.p2.h">Biomiscellatori: Movimento di Precisione a Motori Brushless</h3>
+        <p data-i18n="special.p2.p1">Il moto di miscelazione non nasce da un singolo albero rotante, ma dalla combinazione sincronizzata di più assi motorizzati con motori brushless indipendenti, pilotati elettronicamente in tempo reale. Ogni asse riceve un profilo di velocità e posizione calcolato dal controllo macchina, permettendo di generare traiettorie complesse e ripetibili senza l'usura tipica di cinematismi meccanici a camme.</p>
+        <p data-i18n="special.p2.p2">L'assenza di spazzole riduce l'attrito e il rilascio di particolato nella zona di processo, mentre il controllo in retroazione (feedback da encoder) garantisce una miscelazione costante e ripetibile lotto su lotto, anche al variare di viscosità e volume del prodotto trattato.</p>
+        <div class="special-list">
+          <span data-i18n="special.p2.t1">Motori Brushless Multi-Asse</span>
+          <span data-i18n="special.p2.t2">Controllo Encoder in Retroazione</span>
+          <span data-i18n="special.p2.t3">Traiettorie Programmabili</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="gallery-sec" id="gallery-section">
+  <div class="section-head"><div class="section-tag" data-i18n="gallery.tag">Galleria</div></div>
+  <h2 class="section-title" data-i18n-html="gallery.title">Uno sguardo dentro <strong>il nostro stabilimento</strong></h2>
+  <p class="section-sub" data-i18n="gallery.sub">Un'anteprima dal nostro reparto di montaggio, dalle linee installate presso i clienti e dai singoli modelli a catalogo. Apri la galleria completa per vedere tutto il materiale disponibile.</p>
+
+  <div class="view-layer visible" id="galleryPreviewView">
+    <div class="gallery-grid" id="galleryPreviewGrid"></div>
+    <div class="gallery-cta-row">
+      <button type="button" class="btn-primary" id="openFullGallery" data-i18n="gallery.openfull">Vedi Galleria Completa</button>
+      <span class="gallery-count-label" id="galleryCountLabel"></span>
+    </div>
+  </div>
+
+  <div class="view-layer" id="galleryFullView" hidden>
+    <button class="back-btn" id="backToGalleryPreview" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M19 12H5M5 12L11 6M5 12L11 18" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> <span data-i18n="gallery.backtopreview">Torna all'anteprima</span></button>
+    <div class="gallery-filter" id="galleryFilter">
+      <button type="button" class="active" data-filter="all" data-i18n="gallery.filter.all">Tutti</button>
+      <button type="button" data-filter="stabilimento" data-i18n="gallery.filter.stabilimento">Stabilimento</button>
+      <button type="button" data-filter="blisteratrici" data-i18n="gallery.filter.blisteratrici">Blisteratrici</button>
+      <button type="button" data-filter="termoformatrici" data-i18n="gallery.filter.termoformatrici">Termoformatrici</button>
+      <button type="button" data-filter="deblisteratrici" data-i18n="gallery.filter.deblisteratrici">Deblisteratrici</button>
+      <button type="button" data-filter="contatrici" data-i18n="gallery.filter.contatrici">Contatrici</button>
+      <button type="button" data-filter="tracktrace" data-i18n="gallery.filter.tracktrace">Track &amp; Trace</button>
+      <button type="button" data-filter="dettagli" data-i18n="gallery.filter.dettagli">Dettagli Tecnici</button>
+      <button type="button" data-filter="robotica" data-i18n="gallery.filter.robotica">Robotica</button>
+    </div>
+    <div class="gallery-grid" id="galleryGrid"></div>
+  </div>
+</section>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Chiudi">&times;</button>
+  <button class="lightbox-nav prev" id="lightboxPrev" type="button" aria-label="Immagine precedente">&larr;</button>
+  <img id="lightboxImg" src="" alt="">
+  <video id="lightboxVideo" controls style="display:none;"></video>
+  <button class="lightbox-nav next" id="lightboxNext" type="button" aria-label="Immagine successiva">&rarr;</button>
+  <div class="lightbox-caption" id="lightboxCaption"></div>
+</div>
+
+<section class="why" id="why">
+  <div class="section-head"><div class="section-tag" data-i18n="why.tag">Perché Sceglierci</div></div>
+  <h2 class="section-title" data-i18n-html="why.title">Affidabilità misurabile, <strong>qualità garantita</strong></h2>
+
+  <div class="why-grid">
+    <div>
+      <div class="why-item">
+        <div class="why-num">01</div>
+        <div><h3 data-i18n="why.i1.h">Progettazione su Misura</h3><p data-i18n="why.i1.p">Ogni macchina nasce da un progetto dedicato, costruito insieme al cliente per l'intero processo di confezionamento, mai standardizzato.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">02</div>
+        <div><h3 data-i18n="why.i2.h">Standard Farmaceutici</h3><p data-i18n="why.i2.p">Conformità cGMP, costruzione in acciaio INOX Balcony Style e componenti a contatto prodotto in AISI 316L certificati FDA.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">03</div>
+        <div><h3 data-i18n="why.i3.h">Robotica Avanzata</h3><p data-i18n="why.i3.p">Robot Delta e Robot Lineari integrati su misura per l'alimentazione e la movimentazione automatica dei prodotti in linea.</p></div>
+      </div>
+      <div class="why-item">
+        <div class="why-num">04</div>
+        <div><h3 data-i18n="why.i4.h">Cambio Formato Rapido</h3><p data-i18n="why.i4.p">Architetture progettate per cambi di formato in pochi minuti, riducendo i tempi morti di produzione al minimo.</p></div>
+      </div>
+    </div>
+    <div class="why-visual reveal">
+      <div class="gauge">
+        <svg viewBox="0 0 260 260" aria-hidden="true">
+          <circle cx="130" cy="130" r="110" stroke="#e8e8e6" stroke-width="14" fill="none"/>
+          <circle cx="130" cy="130" r="110" stroke="#c8102e" stroke-width="14" fill="none" stroke-dasharray="630" stroke-dashoffset="95" stroke-linecap="round" transform="rotate(-90 130 130)"/>
+        </svg>
+        <div class="gauge-label"><div class="n">98%</div><div class="l" data-i18n="why.gauge.label">Uptime Linee</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sectors" id="sectors">
+  <div class="section-head"><div class="section-tag" data-i18n="sectors.tag">Settori Applicativi</div></div>
+  <h2 class="section-title" data-i18n-html="sectors.title">Oltre il pharma: <strong>soluzioni per ogni industria</strong></h2>
+  <p class="section-sub" data-i18n="sectors.sub">Siamo costruttori di macchine automatiche per l'industria farmaceutica, cosmetica e alimentare, con competenze tecniche applicabili a numerosi settori con esigenze di automazione personalizzata.</p>
+
+  <div class="sector-row">
+    <div class="sector-pill reveal"><div class="ic" aria-hidden="true">⚕</div><span data-i18n="sectors.farma">Farmaceutico</span></div>
+    <div class="sector-pill reveal"><div class="ic" aria-hidden="true">🧴</div><span data-i18n="sectors.cosmetico">Cosmetico</span></div>
+    <div class="sector-pill reveal"><div class="ic" aria-hidden="true">🍃</div><span data-i18n="sectors.alimentare">Alimentare</span></div>
+    <div class="sector-pill reveal"><div class="ic" aria-hidden="true">🩺</div><span data-i18n="sectors.medicale">Dispositivi Medici</span></div>
+    <div class="sector-pill reveal"><div class="ic" aria-hidden="true">⚙️</div><span data-i18n="sectors.industriale">Industriale</span></div>
+  </div>
+</section>
+
+<section class="cta-band">
+  <h2 data-i18n-html="ctaband.title">Hai un progetto di automazione <strong>da realizzare?</strong></h2>
+  <p data-i18n="ctaband.p">Parliamo delle tue esigenze produttive. I nostri tecnici sono pronti a progettare la soluzione su misura per la tua azienda.</p>
+  <a href="#contact" class="btn-primary" data-i18n="ctaband.cta">Parla con un Tecnico</a>
+</section>
+
+<section class="contact" id="contact">
+  <div class="section-head"><div class="section-tag" data-i18n="contact.tag">Contatti</div></div>
+  <h2 class="section-title" data-i18n-html="contact.title">Iniziamo a costruire <strong>la tua soluzione</strong></h2>
+
+  <div class="contact-grid">
+    <div class="contact-info">
+      <div class="contact-item reveal">
+        <h3 data-i18n="contact.i1.h">Sede</h3>
+        <p>Via Antonio Meucci, 34<br>40024 Castel San Pietro Terme (BO)<br>Italia</p>
+      </div>
+      <div class="contact-item reveal">
+        <h3 data-i18n="contact.i2.h">Contatti</h3>
+        <p>Tel. +39 051 948 549<br>Fax +39 051 694 9321<br>service@icsautomazione.com</p>
+      </div>
+      <div class="contact-item reveal">
+        <h3 data-i18n="contact.i3.h">Orari</h3>
+        <p data-i18n-html="contact.i3.p">Lunedì – Venerdì<br>8:30 – 17:30</p>
+      </div>
+    </div>
+
+    <div>
+      <form id="contactForm" novalidate>
+        <div class="form-group">
+          <input type="text" id="fullname" name="fullname" placeholder=" " required autocomplete="name">
+          <label for="fullname" data-i18n="contact.form.name">Nome e Cognome</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="company" name="company" placeholder=" " autocomplete="organization">
+          <label for="company" data-i18n="contact.form.company">Azienda</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="email" name="email" placeholder=" " required autocomplete="email">
+          <label for="email" data-i18n="contact.form.email">Email</label>
+        </div>
+        <div class="form-group">
+          <textarea id="message" name="message" placeholder=" " required></textarea>
+          <label for="message" data-i18n="contact.form.message">Messaggio</label>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="privacyConsent" name="privacyConsent" required>
+          <label for="privacyConsent" data-i18n-html="contact.form.consent">Ho letto e accetto la <a href="javascript:void(0)" id="privacyLink" class="privacy-trigger">Privacy Policy</a> ai sensi del Regolamento UE 2016/679 (GDPR) per il trattamento dei miei dati personali. *</label>
+        </div>
+        <button type="submit" class="submit-btn" data-i18n="contact.form.submit">Invia Richiesta</button>
+        <div class="form-msg" id="formMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+<section class="careers" id="careers">
+  <div class="section-head"><div class="section-tag" data-i18n="careers.tag">Lavora con Noi</div></div>
+  <h2 class="section-title" data-i18n-html="careers.title">Unisciti al <strong>team ICS Automazione</strong></h2>
+  <p class="section-sub" data-i18n="careers.sub">Siamo sempre interessati a conoscere persone motivate e competenti da inserire nei nostri reparti di progettazione, montaggio e assistenza tecnica. Inviaci il tuo curriculum: lo valuteremo con attenzione.</p>
+
+  <div class="careers-grid">
+    <div class="careers-info reveal">
+      <p data-i18n="careers.intro">Lavorare in ICS Automazione significa entrare in un'azienda artigiana e tecnologica al tempo stesso, dove ogni macchina è un progetto unico costruito insieme al cliente.</p>
+      <div class="careers-perks">
+        <div class="careers-perk" data-i18n-html="careers.perk1"><strong>Crescita tecnica</strong> — affiancamento dei nostri tecnici senior su progetti reali</div>
+        <div class="careers-perk" data-i18n-html="careers.perk2"><strong>Ambiente artigianale</strong> — squadre piccole, responsabilità concrete fin da subito</div>
+        <div class="careers-perk" data-i18n-html="careers.perk3"><strong>Sede</strong> — Castel San Pietro Terme, nel cuore della Packaging Valley</div>
+      </div>
+    </div>
+
+    <div>
+      <form id="careersForm" novalidate>
+        <div class="form-group">
+          <input type="text" id="cFullname" name="cFullname" placeholder=" " required autocomplete="name">
+          <label for="cFullname" data-i18n="contact.form.name">Nome e Cognome</label>
+        </div>
+        <div class="form-group">
+          <input type="email" id="cEmail" name="cEmail" placeholder=" " required autocomplete="email">
+          <label for="cEmail" data-i18n="contact.form.email">Email</label>
+        </div>
+        <div class="form-group">
+          <input type="text" id="cRole" name="cRole" placeholder=" " autocomplete="off">
+          <label for="cRole" data-i18n="careers.form.role">Ruolo di interesse</label>
+        </div>
+        <div class="form-file">
+          <span class="form-file-label" data-i18n="careers.form.cv">Curriculum Vitae (PDF, max consigliato 5MB)</span>
+          <input type="file" id="cCv" name="cCv" accept=".pdf,.doc,.docx">
+        </div>
+        <div class="form-group">
+          <textarea id="cMessage" name="cMessage" placeholder=" "></textarea>
+          <label for="cMessage" data-i18n="careers.form.message">Messaggio (opzionale)</label>
+        </div>
+        <div class="form-checkbox">
+          <input type="checkbox" id="cPrivacyConsent" name="cPrivacyConsent" required>
+          <label for="cPrivacyConsent" data-i18n-html="careers.form.consent">Ho letto e accetto la <a href="javascript:void(0)" id="cPrivacyLink" class="privacy-trigger">Privacy Policy</a> ai sensi del Regolamento UE 2016/679 (GDPR) per il trattamento dei miei dati personali, incluso il CV allegato. *</label>
+        </div>
+        <button type="submit" class="submit-btn" data-i18n="careers.form.submit">Invia Candidatura</button>
+        <div class="form-msg" id="careersFormMsg" role="status" aria-live="polite"></div>
+      </form>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <div>© 2026 ICS Automazione S.r.l. — Castel San Pietro Terme, Italia</div>
+  <div class="footer-links">
+    <a href="#about" data-i18n="nav.about">Azienda</a>
+    <a href="#products" class="nav-products-link" data-i18n="nav.products">Macchine</a>
+    <a href="#services" data-i18n="nav.services">Servizi</a>
+    <a href="#gallery-section" data-i18n="nav.gallery">Galleria</a>
+    <a href="#careers" data-i18n="nav.careers">Lavora con Noi</a>
+    <a href="#contact" data-i18n="nav.contact">Contatti</a>
+  </div>
+</footer>
+
+<div class="privacy-modal-overlay" id="privacyModalOverlay">
+  <div class="privacy-modal">
+    <button class="privacy-modal-close" id="privacyModalClose" type="button" aria-label="Chiudi">&times;</button>
+    <div class="privacy-modal-inner" id="privacyModalContent">
+      <h2 data-i18n="privacy.title">Informativa sulla Privacy</h2>
+      <p class="pm-updated" data-i18n="privacy.updated">Ultimo aggiornamento: Giugno 2026</p>
+
+      <h3 data-i18n="privacy.s1.h">1. Titolare del Trattamento</h3>
+      <p data-i18n-html="privacy.s1.p1">Il Titolare del trattamento dei dati personali raccolti tramite il presente sito web è <strong>ICS Automazione S.r.l.</strong>, con sede legale in Via Antonio Meucci, 34 — 40024 Castel San Pietro Terme (BO), Italia.</p>
+      <p data-i18n-html="privacy.s1.p2">Per qualsiasi richiesta relativa al trattamento dei dati personali, è possibile contattare il Titolare all'indirizzo email <strong>service@icsautomazione.com</strong> oppure telefonicamente al numero <strong>+39 051 948 549</strong>.</p>
+
+      <h3 data-i18n="privacy.s2.h">2. Dati Raccolti e Finalità del Trattamento</h3>
+      <p data-i18n="privacy.s2.p1">Il sito raccoglie dati personali esclusivamente tramite i moduli compilati volontariamente dall'utente (modulo contatti e modulo candidature), nonché attraverso i dati di navigazione tecnicamente necessari al funzionamento del sito.</p>
+      <table>
+        <thead>
+          <tr><th data-i18n="privacy.table.h1">Categoria di Dati</th><th data-i18n="privacy.table.h2">Finalità</th><th data-i18n="privacy.table.h3">Base Giuridica</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td data-i18n="privacy.table.r1.c1">Nome, cognome, email, azienda, contenuto del messaggio</td>
+            <td data-i18n="privacy.table.r1.c2">Gestione delle richieste di informazioni e contatti commerciali</td>
+            <td data-i18n="privacy.table.r1.c3">Esecuzione di misure precontrattuali su richiesta dell'interessato (art. 6.1.b GDPR)</td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.table.r2.c1">Nome, cognome, email, ruolo di interesse, CV, messaggio</td>
+            <td data-i18n="privacy.table.r2.c2">Valutazione di candidature spontanee per opportunità lavorative</td>
+            <td data-i18n="privacy.table.r2.c3">Consenso dell'interessato (art. 6.1.a GDPR)</td>
+          </tr>
+          <tr>
+            <td data-i18n="privacy.table.r3.c1">Dati di navigazione, indirizzo IP, cookie tecnici</td>
+            <td data-i18n="privacy.table.r3.c2">Funzionamento tecnico del sito e sicurezza</td>
+            <td data-i18n="privacy.table.r3.c3">Legittimo interesse del Titolare (art. 6.1.f GDPR)</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h3 data-i18n="privacy.s3.h">3. Natura del Conferimento e Conseguenze del Rifiuto</h3>
+      <p data-i18n="privacy.s3.p1">Il conferimento dei dati richiesti nei moduli è facoltativo, ma necessario per poter rispondere alle richieste di informazioni o valutare le candidature ricevute. Il mancato conferimento comporta l'impossibilità di dare seguito alla richiesta inviata.</p>
+
+      <h3 data-i18n="privacy.s4.h">4. Modalità del Trattamento e Tempi di Conservazione</h3>
+      <p data-i18n="privacy.s4.p1">I dati sono trattati con strumenti informatici e telematici, con logiche strettamente correlate alle finalità indicate e, comunque, in modo da garantirne la sicurezza e la riservatezza. I dati relativi a richieste di contatto sono conservati per il tempo necessario a gestire la richiesta e per un massimo di 24 mesi successivi all'ultimo contatto. I curriculum e le candidature sono conservati per un massimo di 12 mesi, salvo diverso consenso espresso dall'interessato per future opportunità.</p>
+
+      <h3 data-i18n="privacy.s5.h">5. Destinatari dei Dati</h3>
+      <p data-i18n="privacy.s5.p1">I dati personali potranno essere comunicati a soggetti terzi che svolgono attività in outsourcing per conto del Titolare, quali fornitori di servizi informatici e di hosting, sempre nei limiti necessari allo svolgimento delle relative funzioni e nel rispetto delle garanzie previste dal GDPR. I dati non sono in alcun caso ceduti o venduti a terzi per finalità di marketing.</p>
+
+      <h3 data-i18n="privacy.s6.h">6. Trasferimento dei Dati Extra-UE</h3>
+      <p data-i18n="privacy.s6.p1">I dati personali sono trattati e conservati su server situati all'interno dell'Unione Europea. Qualora si rendesse necessario un trasferimento verso paesi extra-UE, questo avverrà solo in presenza delle garanzie adeguate previste dal Capo V del GDPR (es. clausole contrattuali standard).</p>
+
+      <h3 data-i18n="privacy.s7.h">7. Diritti dell'Interessato</h3>
+      <p data-i18n="privacy.s7.p1">In qualità di interessato, l'utente ha il diritto di richiedere in qualsiasi momento al Titolare del trattamento:</p>
+      <ul>
+        <li data-i18n="privacy.s7.li1">L'accesso ai propri dati personali e copia degli stessi (diritto di accesso, art. 15 GDPR)</li>
+        <li data-i18n="privacy.s7.li2">La rettifica dei dati inesatti o incompleti (diritto di rettifica, art. 16 GDPR)</li>
+        <li data-i18n="privacy.s7.li3">La cancellazione dei propri dati, nei casi previsti dalla legge (diritto all'oblio, art. 17 GDPR)</li>
+        <li data-i18n="privacy.s7.li4">La limitazione del trattamento (art. 18 GDPR)</li>
+        <li data-i18n="privacy.s7.li5">La portabilità dei dati verso altro titolare (art. 20 GDPR)</li>
+        <li data-i18n="privacy.s7.li6">L'opposizione al trattamento basato sul legittimo interesse (art. 21 GDPR)</li>
+        <li data-i18n="privacy.s7.li7">La revoca del consenso in qualsiasi momento, senza pregiudicare la liceità del trattamento precedente (art. 7 GDPR)</li>
+      </ul>
+      <p data-i18n-html="privacy.s7.p2">Per esercitare tali diritti è possibile scrivere a <strong>service@icsautomazione.com</strong>. L'interessato ha inoltre il diritto di presentare reclamo al Garante per la Protezione dei Dati Personali (www.garanteprivacy.it), qualora ritenga che il trattamento dei propri dati violi la normativa vigente.</p>
+
+      <h3 data-i18n="privacy.s8.h">8. Cookie</h3>
+      <p data-i18n="privacy.s8.p1">Il sito utilizza esclusivamente cookie tecnici, necessari al corretto funzionamento delle pagine (es. memorizzazione della lingua selezionata e dello stato dell'animazione introduttiva). Non vengono utilizzati cookie di profilazione o di tracciamento per finalità di marketing, né vengono installati cookie di terze parti.</p>
+
+      <h3 data-i18n="privacy.s9.h">9. Modifiche alla Presente Informativa</h3>
+      <p data-i18n="privacy.s9.p1">Il Titolare si riserva il diritto di modificare o semplicemente aggiornare il contenuto della presente informativa, in tutto o in parte, anche a causa di variazioni della normativa applicabile. Le modifiche saranno rese note tramite pubblicazione sul presente sito. Si prega di consultare con regolarità questa pagina, prendendo come riferimento la data di ultima modifica indicata in alto.</p>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function(){
+    const overlay = document.getElementById('introOverlay');
+    if(!overlay) return;
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let alreadySeen = false;
+    try { alreadySeen = sessionStorage.getItem('icsIntroSeen') === '1'; } catch(e){ alreadySeen = false; }
+
+    if(reduceMotion || alreadySeen){
+      overlay.classList.add('intro-hidden');
+      return;
+    }
+
+    try { sessionStorage.setItem('icsIntroSeen', '1'); } catch(e){}
+
+    document.body.style.overflow = 'hidden';
+
+    const stage = document.getElementById('introStage');
+    const box = document.getElementById('introBox');
+    const clipI = document.querySelector('#introClipI rect');
+    const clipC = document.querySelector('#introClipC rect');
+    const clipS = document.querySelector('#introClipS rect');
+    const wordI = document.getElementById('introWordI');
+    const wordC = document.getElementById('introWordC');
+    const wordS = document.getElementById('introWordS');
+    const line = document.getElementById('introLine');
+    const arrowHead = document.getElementById('introArrowHead');
+    const arrowMask = document.getElementById('introArrowMask');
+    const automazione = document.getElementById('introAutomazione');
+    const navLogoImg = document.querySelector('.logo img');
+
+    const timers = [];
+    function at(ms, fn){ timers.push(setTimeout(fn, ms)); }
+
+    let finished = false;
+    function finishIntro(skipMorph){
+      if(finished) return;
+      finished = true;
+      timers.forEach(clearTimeout);
+      overlay.removeEventListener('click', onSkipClick);
+      document.body.style.overflow = '';
+
+      if(skipMorph){
+        overlay.classList.add('intro-hidden');
+        return;
+      }
+      runMorph();
+    }
+
+    function onSkipClick(){ finishIntro(true); }
+    overlay.addEventListener('click', onSkipClick);
+
+    function runMorph(){
+      let target = null;
+      if(navLogoImg){
+        const r = navLogoImg.getBoundingClientRect();
+        if(r.width > 0 && r.height > 0) target = r;
+      }
+      if(!target){
+        overlay.classList.add('intro-hidden');
+        return;
+      }
+
+      const stageRect = stage.getBoundingClientRect();
+      const stageCenterX = stageRect.left + stageRect.width / 2;
+      const stageCenterY = stageRect.top + stageRect.height / 2;
+      const targetCenterX = target.left + target.width / 2;
+      const targetCenterY = target.top + target.height / 2;
+
+      const scale = target.height / stageRect.height;
+      const dx = targetCenterX - stageCenterX;
+      const dy = targetCenterY - stageCenterY;
+
+      stage.classList.add('morphing');
+      requestAnimationFrame(() => {
+        stage.style.transform = `translate(${dx}px, ${dy}px) scale(${scale})`;
+        overlay.classList.add('fade-bg');
+      });
+
+      setTimeout(() => {
+        overlay.classList.add('intro-hidden');
+      }, 700);
+    }
+
+    requestAnimationFrame(() => {
+      box.style.transition = 'stroke-dashoffset 2.8s cubic-bezier(.4,0,.2,1)';
+    });
+
+    at(1200, () => { box.style.strokeDashoffset = '0'; });
+    at(2800, () => { clipI.setAttribute('width','100'); wordI.classList.add('show'); });
+    at(3800, () => { clipC.setAttribute('width','110'); wordC.classList.add('show'); });
+    at(4800, () => { clipS.setAttribute('width','100'); wordS.classList.add('show'); });
+
+    at(6600, () => {
+      line.style.transition = 'x2 2s cubic-bezier(.65,0,.35,1)';
+      arrowHead.style.transition = 'transform 2s cubic-bezier(.65,0,.35,1), opacity .15s ease';
+      arrowMask.style.transition = 'width 2s cubic-bezier(.65,0,.35,1)';
+      arrowHead.style.opacity = '1';
+      line.setAttribute('x2','325');
+      arrowHead.setAttribute('transform','translate(325,120)');
+      arrowMask.setAttribute('width','305');
+    });
+
+    at(8800, () => {
+      automazione.style.transition = 'opacity 1.2s ease';
+      automazione.style.opacity = '1';
+    });
+
+    at(12100, () => { finishIntro(false); });
+  })();
+
+  const logoHomeBtn = document.getElementById('logoHomeBtn');
+  logoHomeBtn.addEventListener('click', () => { window.scrollTo({top:0, behavior:'smooth'}); });
+
+  /* ===== STATO LINGUA ===== */
+  let currentLang = 'it';
+  const originalText = new Map();
+  const originalHtml = new Map();
+
+  /* ===== i18n: dizionario traduzioni statiche IT->EN ===== */
+  const i18n = {
+    en: {
+      "nav.about":"Company", "nav.products":"Machines", "nav.services":"Services", "nav.special":"Projects", "nav.gallery":"Gallery", "nav.careers":"Careers", "nav.contact":"Contact",
+      "hero.tag":"Engineering &amp; Manufacturing · Since 2005",
+      "hero.cta1":"Discover the Machines", "hero.cta2":"Contact Us",
+      "hero.title":"Italian precision.<strong>Automation excellence.</strong>",
+      "hero.desc":"Manufacturers of automatic machines for the pharmaceutical, cosmetic and food industries. Integrated solutions shared with the customer for the entire packaging process, from primary to secondary packaging.",
+      "hero.bandcaption":"From our facility in Castel San Pietro Terme",
+      "stats.years":"Years of experience since 2005", "stats.madeinitaly":"Made in Italy", "stats.cgmp":"Pharmaceutical standards",
+
+      "about.tag":"About Us",
+      "about.title":"Attention to detail <strong>serving production</strong>",
+      "about.sub":"Founded in 2005, ICS Automazione builds automatic machines for the pharmaceutical, cosmetic and food industries, based in Castel San Pietro Terme, in the heart of the \"Italian Packaging Valley\".",
+      "about.p1":"We specialize in blister packaging machines for solid products, with integrated solutions shared with the customer for the entire packaging process. Our main goal is to provide solid, robust machines with high performance rates.",
+      "about.p2":"Our offices and assembly department are located in Castel San Pietro Terme, Bologna. We have delegations in several countries to better meet our customers' needs, and through our network of trusted local suppliers we guarantee that our machines are 100% Made in Italy.",
+      "about.list1.t":"Custom Design", "about.list1.d":"Machines developed for the customer's specific needs",
+      "about.list2.t":"Pharmaceutical Standards", "about.list2.d":"cGMP compliance for the pharma sector",
+      "about.list3.t":"Ongoing Support", "about.list3.d":"Support from our technicians on all installed lines",
+      "about.badge1":"Green Cloud Certified", "about.badge2":"Sustainable Hosting · Solar Energy", "about.badge3":"FDA Compliant AISI 316L",
+
+      "products.tag":"The Machines",
+      "products.title":"A complete range for <strong>every packaging need</strong>",
+      "products.sub":"Each category includes several models, each with its own media gallery and dedicated technical sheet. Select a category to begin.",
+
+      "pcard.blisteratrici.h":"Blister Packaging Machines",
+      "pcard.termoformatrici.h":"Thermoforming Machines",
+      "pcard.astucciatrici.h":"Cartoning Machines",
+      "pcard.deblisteratrici.h":"Deblistering Machines",
+      "pcard.contatrici.h":"Counting Machines",
+      "pcard.cartonatrici.h":"Case Packers",
+      "pcard.tracktrace.h":"Track &amp; Trace", "pcard.tracktrace.p":"Serialization",
+      "pcard.overhauling.h":"Overhauling",
+      "pcard.custom.h":"Custom &amp; Service", "pcard.custom.p":"Tailor-made",
+
+      "btn.backoverview":"Back to overview",
+      "btn.backmodels":"Back to models",
+
+      "services.tag":"Services",
+      "services.title":"We don't just build machines: <strong>we support them throughout their entire production life</strong>",
+      "services.sub":"Beyond designing and building machines, we offer a complete technical service dedicated to formats and product-contact parts for blister lines: from custom mould design to scheduled maintenance, down to format rationalization to cut management costs.",
+      "services.s1.h":"Custom Blister Format Parts",
+      "services.s1.p":"We design custom format parts for blister machines, optimised for every material — Aclar, PVC, PVDC, PP, PET, COC — with excellent results even in cold-forming ALU/ALU.",
+      "services.s2.h":"Formats for Every Manufacturer",
+      "services.s2.p":"Format parts compatible with blister machines from all major manufacturers, in any covering material: raw aluminium, annealed aluminium, paper/aluminium laminate.",
+      "services.s2.t1":"Plates", "services.s2.t2":"Feeding", "services.s2.t3":"Sealing",
+      "services.s3.h":"Product Feeding Systems",
+      "services.s3.p":"Dedicated feeding systems for every product type, able to operate with precision and consistency even at high production volumes.",
+      "services.s4.h":"Blister Layout &amp; Design",
+      "services.s4.p":"Blister layout study considering machine constraints, feeding method, material and product shape, for maximum production yield.",
+      "services.s5.h":"Format Rationalization",
+      "services.s5.p":"We standardise blister formats across different products, for a faster format change and far simpler spare parts management.",
+      "services.s5.highlight":"potential savings on format management costs",
+      "services.s6.h":"After-Sales Support",
+      "services.s6.p":"Scheduled maintenance, plug &amp; play cutting unit regeneration and OEE analysis to optimise the entire packaging process.",
+      "services.cta":"Request Support",
+      "services.note":"For requests about formats, spare parts or scheduled maintenance, contact our technical department directly.",
+
+      "special.tag":"Special Projects",
+      "special.title":"Beyond standard: <strong>solutions built to measure</strong>",
+      "special.sub":"Alongside our catalogue range, we design complete lines and custom interventions on the customer's specific request. Here are two recent examples of our work.",
+      "special.p1.tag":"Complete Line",
+      "special.p1.h":"Complete Packaging Line — Our Most Recent Project",
+      "special.p1.p":"An integrated line combining primary and secondary packaging in a single plant: from ALU/ALU blister forming to final carton packaging, with quality control and traceability stations along the entire path.",
+      "special.p1.t1":"ALU/ALU Blister Machine", "special.p1.t2":"Micro-Dosing Unit", "special.p1.t3":"Medical Device Assembly", "special.p1.t4":"Deep Thermoforming for Trays", "special.p1.t5":"Cartoning Machine", "special.p1.t6":"Track &amp; Trace", "special.p1.t7":"Case Packer",
+      "special.p2.tag":"Bio-Mixing",
+      "special.p2.h":"Bio-Mixers: Precision Motion with Brushless Motors",
+      "special.p2.p1":"The mixing motion doesn't come from a single rotating shaft, but from the synchronised combination of multiple motorised axes with independent brushless motors, electronically driven in real time. Each axis receives a speed and position profile calculated by the machine control, generating complex, repeatable trajectories without the wear typical of cam-based mechanical linkages.",
+      "special.p2.p2":"The absence of brushes reduces friction and particulate release in the process zone, while feedback control (via encoder) ensures consistent, repeatable mixing batch after batch, even as the viscosity and volume of the treated product vary.",
+      "special.p2.t1":"Multi-Axis Brushless Motors", "special.p2.t2":"Feedback Encoder Control", "special.p2.t3":"Programmable Trajectories",
+
+      "gallery.tag":"Gallery",
+      "gallery.title":"A look inside <strong>our facility</strong>",
+      "gallery.sub":"A preview from our assembly department, from lines installed at customer sites and from individual catalogue models. Open the full gallery to see all available material.",
+      "gallery.openfull":"View Full Gallery",
+      "gallery.backtopreview":"Back to preview",
+      "gallery.filter.all":"All", "gallery.filter.stabilimento":"Facility", "gallery.filter.blisteratrici":"Blister Machines", "gallery.filter.termoformatrici":"Thermoformers", "gallery.filter.deblisteratrici":"Deblistering Machines", "gallery.filter.contatrici":"Counting Machines", "gallery.filter.tracktrace":"Track &amp; Trace", "gallery.filter.dettagli":"Technical Details", "gallery.filter.robotica":"Robotics",
+
+      "why.tag":"Why Choose Us",
+      "why.title":"Measurable reliability, <strong>guaranteed quality</strong>",
+      "why.i1.h":"Tailor-Made Design", "why.i1.p":"Every machine starts from a dedicated project, built together with the customer for the entire packaging process, never standardised.",
+      "why.i2.h":"Pharmaceutical Standards", "why.i2.p":"cGMP compliance, Balcony Style stainless steel construction and FDA-certified AISI 316L product-contact components.",
+      "why.i3.h":"Advanced Robotics", "why.i3.p":"Delta and Linear Robots integrated to measure for automatic product feeding and handling on the line.",
+      "why.i4.h":"Fast Format Change", "why.i4.p":"Architectures designed for format changes in just a few minutes, minimising production downtime.",
+      "why.gauge.label":"Line Uptime",
+
+      "sectors.tag":"Application Sectors",
+      "sectors.title":"Beyond pharma: <strong>solutions for every industry</strong>",
+      "sectors.sub":"We are manufacturers of automatic machines for the pharmaceutical, cosmetic and food industries, with technical expertise applicable to numerous sectors with custom automation needs.",
+      "sectors.farma":"Pharmaceutical", "sectors.cosmetico":"Cosmetic", "sectors.alimentare":"Food", "sectors.medicale":"Medical Devices", "sectors.industriale":"Industrial",
+
+      "ctaband.title":"Have an automation project <strong>to bring to life?</strong>",
+      "ctaband.p":"Let's talk about your production needs. Our technicians are ready to design the tailor-made solution for your company.",
+      "ctaband.cta":"Talk to a Technician",
+
+      "contact.tag":"Contact",
+      "contact.title":"Let's start building <strong>your solution</strong>",
+      "contact.i1.h":"Headquarters", "contact.i2.h":"Contact", "contact.i3.h":"Hours",
+      "contact.i3.p":"Monday – Friday<br>8:30 AM – 5:30 PM",
+      "contact.form.name":"Full Name", "contact.form.company":"Company", "contact.form.email":"Email", "contact.form.message":"Message", "contact.form.submit":"Send Request",
+      "contact.form.consent":"I have read and accept the <a href=\"javascript:void(0)\" id=\"privacyLink\" class=\"privacy-trigger\">Privacy Policy</a> under EU Regulation 2016/679 (GDPR) for the processing of my personal data. *",
+
+      "careers.tag":"Careers",
+      "careers.title":"Join the <strong>ICS Automazione team</strong>",
+      "careers.sub":"We are always interested in meeting motivated, skilled people to join our design, assembly and technical support departments. Send us your CV: we'll review it carefully.",
+      "careers.intro":"Working at ICS Automazione means joining a company that is both artisanal and technological, where every machine is a unique project built together with the customer.",
+      "careers.perk1":"<strong>Technical Growth</strong> — working alongside our senior technicians on real projects",
+      "careers.perk2":"<strong>Artisanal Environment</strong> — small teams, real responsibility from day one",
+      "careers.perk3":"<strong>Location</strong> — Castel San Pietro Terme, in the heart of the Packaging Valley",
+      "careers.form.role":"Role of interest", "careers.form.cv":"Curriculum Vitae (PDF, max recommended 5MB)", "careers.form.message":"Message (optional)", "careers.form.submit":"Send Application",
+      "careers.form.consent":"I have read and accept the <a href=\"javascript:void(0)\" id=\"cPrivacyLink\" class=\"privacy-trigger\">Privacy Policy</a> under EU Regulation 2016/679 (GDPR) for the processing of my personal data, including the attached CV. *",
+
+      "privacy.title":"Privacy Policy",
+      "privacy.updated":"Last updated: June 2026",
+      "privacy.s1.h":"1. Data Controller",
+      "privacy.s1.p1":"The Data Controller for personal data collected through this website is <strong>ICS Automazione S.r.l.</strong>, with registered office at Via Antonio Meucci, 34 — 40024 Castel San Pietro Terme (BO), Italy.",
+      "privacy.s1.p2":"For any request regarding the processing of personal data, you can contact the Data Controller at <strong>service@icsautomazione.com</strong> or by phone at <strong>+39 051 948 549</strong>.",
+      "privacy.s2.h":"2. Data Collected and Purpose of Processing",
+      "privacy.s2.p1":"The site collects personal data exclusively through forms voluntarily filled in by the user (contact form and application form), as well as through navigation data technically necessary for the site to function.",
+      "privacy.table.h1":"Data Category", "privacy.table.h2":"Purpose", "privacy.table.h3":"Legal Basis",
+      "privacy.table.r1.c1":"Name, surname, email, company, message content",
+      "privacy.table.r1.c2":"Handling information requests and business contacts",
+      "privacy.table.r1.c3":"Performance of pre-contractual measures at the data subject's request (Art. 6.1.b GDPR)",
+      "privacy.table.r2.c1":"Name, surname, email, role of interest, CV, message",
+      "privacy.table.r2.c2":"Evaluation of unsolicited applications for job opportunities",
+      "privacy.table.r2.c3":"Consent of the data subject (Art. 6.1.a GDPR)",
+      "privacy.table.r3.c1":"Navigation data, IP address, technical cookies",
+      "privacy.table.r3.c2":"Technical operation of the site and security",
+      "privacy.table.r3.c3":"Legitimate interest of the Data Controller (Art. 6.1.f GDPR)",
+      "privacy.s3.h":"3. Nature of Data Provision and Consequences of Refusal",
+      "privacy.s3.p1":"Providing the data requested in the forms is optional, but necessary in order to respond to information requests or evaluate applications received. Failure to provide the data makes it impossible to follow up on the request sent.",
+      "privacy.s4.h":"4. Processing Methods and Retention Periods",
+      "privacy.s4.p1":"Data is processed using IT and telematic tools, with logic strictly related to the stated purposes and, in any case, in a way that guarantees its security and confidentiality. Data relating to contact requests is kept for the time necessary to handle the request and for a maximum of 24 months after the last contact. CVs and applications are kept for a maximum of 12 months, unless the data subject expressly consents otherwise for future opportunities.",
+      "privacy.s5.h":"5. Data Recipients",
+      "privacy.s5.p1":"Personal data may be disclosed to third parties carrying out outsourced activities on behalf of the Data Controller, such as IT and hosting service providers, always within the limits necessary for carrying out their functions and in compliance with the guarantees set out by the GDPR. Data is never sold or transferred to third parties for marketing purposes.",
+      "privacy.s6.h":"6. Transfer of Data Outside the EU",
+      "privacy.s6.p1":"Personal data is processed and stored on servers located within the European Union. Should a transfer to non-EU countries become necessary, it will only take place where the appropriate safeguards provided for in Chapter V of the GDPR exist (e.g. standard contractual clauses).",
+      "privacy.s7.h":"7. Rights of the Data Subject",
+      "privacy.s7.p1":"As a data subject, the user has the right to request from the Data Controller at any time:",
+      "privacy.s7.li1":"Access to their personal data and a copy thereof (right of access, Art. 15 GDPR)",
+      "privacy.s7.li2":"Rectification of inaccurate or incomplete data (right of rectification, Art. 16 GDPR)",
+      "privacy.s7.li3":"Erasure of their data, in the cases provided for by law (right to be forgotten, Art. 17 GDPR)",
+      "privacy.s7.li4":"Restriction of processing (Art. 18 GDPR)",
+      "privacy.s7.li5":"Portability of data to another controller (Art. 20 GDPR)",
+      "privacy.s7.li6":"Objection to processing based on legitimate interest (Art. 21 GDPR)",
+      "privacy.s7.li7":"Withdrawal of consent at any time, without affecting the lawfulness of prior processing (Art. 7 GDPR)",
+      "privacy.s7.p2":"To exercise these rights, you can write to <strong>service@icsautomazione.com</strong>. The data subject also has the right to lodge a complaint with the Italian Data Protection Authority (www.garanteprivacy.it), should they believe the processing of their data violates current regulations.",
+      "privacy.s8.h":"8. Cookies",
+      "privacy.s8.p1":"The site uses exclusively technical cookies, necessary for the correct functioning of the pages (e.g. storing the selected language and the intro animation state). No profiling or tracking cookies are used for marketing purposes, and no third-party cookies are installed.",
+      "privacy.s9.h":"9. Changes to this Policy",
+      "privacy.s9.p1":"The Data Controller reserves the right to modify or simply update the content of this policy, in whole or in part, including due to changes in applicable regulations. Changes will be published on this site. Please check this page regularly, referring to the last update date shown above."
+    }
+  };
+
+  function applyLang(lang){
+    if(lang === currentLang) return;
+    document.body.classList.add('lang-transitioning');
+    setTimeout(() => {
+      currentLang = lang;
+      document.documentElement.lang = lang === 'en' ? 'en' : 'it';
+      document.getElementById('langIt').classList.toggle('active', lang === 'it');
+      document.getElementById('langEn').classList.toggle('active', lang === 'en');
+      document.getElementById('langIt').setAttribute('aria-pressed', String(lang === 'it'));
+      document.getElementById('langEn').setAttribute('aria-pressed', String(lang === 'en'));
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if(!originalText.has(el)) originalText.set(el, el.textContent);
+        if(lang === 'it'){ el.textContent = originalText.get(el); }
+        else if(i18n.en[key]){ el.textContent = i18n.en[key].replace(/&amp;/g,'&'); }
+      });
+      document.querySelectorAll('[data-i18n-html]').forEach(el => {
+        const key = el.getAttribute('data-i18n-html');
+        if(!originalHtml.has(el)) originalHtml.set(el, el.innerHTML);
+        if(lang === 'it'){ el.innerHTML = originalHtml.get(el); }
+        else if(i18n.en[key]){ el.innerHTML = i18n.en[key]; }
+      });
+
+      requestAnimationFrame(() => {
+        setTimeout(() => document.body.classList.remove('lang-transitioning'), 30);
+      });
+
+      if(typeof refreshDynamicViews === 'function') refreshDynamicViews();
+    }, 320);
+  }
+
+  document.getElementById('langIt').addEventListener('click', () => applyLang('it'));
+  document.getElementById('langEn').addEventListener('click', () => applyLang('en'));
+
+  /* ===== Modal Privacy Policy ===== */
+  (function(){
+    const overlay = document.getElementById('privacyModalOverlay');
+    const closeBtn = document.getElementById('privacyModalClose');
+    if(!overlay) return;
+
+    function openModal(){
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+
+    document.addEventListener('click', (e) => {
+      const trigger = e.target.closest('.privacy-trigger');
+      if(trigger){
+        e.preventDefault();
+        e.stopPropagation();
+        openModal();
+      }
+    });
+
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => {
+      if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal();
+    });
+  })();
+
+  const burger = document.getElementById('burgerBtn');
+  const navLinks = document.getElementById('navLinks');
+  function toggleMenu(forceClose){
+    const isOpen = forceClose ? false : !navLinks.classList.contains('active');
+    navLinks.classList.toggle('active', isOpen);
+    burger.classList.toggle('active', isOpen);
+    burger.setAttribute('aria-expanded', String(isOpen));
+  }
+  burger.addEventListener('click', () => toggleMenu());
+  navLinks.querySelectorAll('a').forEach(link => { link.addEventListener('click', () => toggleMenu(true)); });
+
+  const reveals = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if(entry.isIntersecting){ entry.target.classList.add('visible'); revealObserver.unobserve(entry.target); }
+    });
+  }, {threshold:0.15, rootMargin:'0px 0px -40px 0px'});
+  reveals.forEach(el => revealObserver.observe(el));
+
+  const contactForm = document.getElementById('contactForm');
+  contactForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!contactForm.checkValidity()){ contactForm.reportValidity(); return; }
+    const nome = document.getElementById('fullname').value.trim();
+    const azienda = document.getElementById('company').value.trim();
+    const email = document.getElementById('email').value.trim();
+    const messaggio = document.getElementById('message').value.trim();
+    const subjectText = currentLang === 'en' ? 'Website request - ' : 'Richiesta dal sito - ';
+    const subject = encodeURIComponent(subjectText + (nome || (currentLang === 'en' ? 'New contact' : 'Nuovo contatto')));
+    const bodyText = currentLang === 'en'
+      ? ('Full Name: ' + nome + '\n' + 'Company: ' + (azienda || '-') + '\n' + 'Email: ' + email + '\n\n' + 'Message:\n' + messaggio)
+      : ('Nome e Cognome: ' + nome + '\n' + 'Azienda: ' + (azienda || '-') + '\n' + 'Email: ' + email + '\n\n' + 'Messaggio:\n' + messaggio);
+    const body = encodeURIComponent(bodyText);
+    window.location.href = 'mailto:service@icsautomazione.com?subject=' + subject + '&body=' + body;
+    document.getElementById('formMsg').textContent = currentLang === 'en'
+      ? 'Your email program will open with the request already filled in. Alternatively, write to us at service@icsautomazione.com.'
+      : 'Si aprirà il tuo programma di posta con la richiesta già compilata. In alternativa scrivici a service@icsautomazione.com.';
+  });
+
+  const careersForm = document.getElementById('careersForm');
+  careersForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if(!careersForm.checkValidity()){ careersForm.reportValidity(); return; }
+    const nome = document.getElementById('cFullname').value.trim();
+    const email = document.getElementById('cEmail').value.trim();
+    const ruolo = document.getElementById('cRole').value.trim();
+    const messaggio = document.getElementById('cMessage').value.trim();
+    const cv = document.getElementById('cCv');
+    const cvName = cv && cv.files && cv.files.length ? cv.files[0].name : '';
+    const subjectText = currentLang === 'en' ? 'Application - ' : 'Candidatura - ';
+    const subject = encodeURIComponent(subjectText + (nome || (currentLang === 'en' ? 'New candidate' : 'Nuovo candidato')));
+    const bodyText = currentLang === 'en'
+      ? ('Full Name: ' + nome + '\n' + 'Email: ' + email + '\n' + 'Role of interest: ' + (ruolo || '-') + '\n' + 'Attached CV: ' + (cvName || '(attach manually to the email)') + '\n\n' + 'Message:\n' + (messaggio || '-'))
+      : ('Nome e Cognome: ' + nome + '\n' + 'Email: ' + email + '\n' + 'Ruolo di interesse: ' + (ruolo || '-') + '\n' + 'CV allegato: ' + (cvName || '(da allegare manualmente alla mail)') + '\n\n' + 'Messaggio:\n' + (messaggio || '-'));
+    const body = encodeURIComponent(bodyText);
+    window.location.href = 'mailto:service@icsautomazione.com?subject=' + subject + '&body=' + body;
+    document.getElementById('careersFormMsg').textContent = currentLang === 'en'
+      ? "Your email program will open: remember to attach your CV before sending. Alternatively, write to us at service@icsautomazione.com."
+      : 'Si aprirà il tuo programma di posta: ricordati di allegare il CV prima di inviare. In alternativa scrivici a service@icsautomazione.com.';
+  });
+
+  /* ===== Biomiscellatori: alternanza video (primi 7s) / immagine (7s) in loop ===== */
+  (function(){
+    const swapWrap = document.getElementById('biomixerSwap');
+    if(!swapWrap) return;
+    const video = document.getElementById('biomixerVideo');
+    const img = document.getElementById('biomixerImg');
+    const VIDEO_SECONDS = 7;
+    const IMAGE_SECONDS = 7;
+    let cycleTimer = null;
+    let isRunning = false;
+
+    video.src = 'https://i.imgur.com/0AyBxKm.mp4';
+
+    function clearCycleTimer(){ if(cycleTimer){ clearTimeout(cycleTimer); cycleTimer = null; } }
+
+    function showVideo(){
+      img.classList.remove('swap-active');
+      video.classList.add('swap-active');
+      video.currentTime = 0;
+      video.play().catch(() => {});
+      clearCycleTimer();
+      cycleTimer = setTimeout(showImage, VIDEO_SECONDS * 1000);
+    }
+    function showImage(){
+      video.pause();
+      video.classList.remove('swap-active');
+      img.classList.add('swap-active');
+      clearCycleTimer();
+      cycleTimer = setTimeout(showVideo, IMAGE_SECONDS * 1000);
+    }
+
+    video.addEventListener('timeupdate', () => {
+      if(video.currentTime >= VIDEO_SECONDS && video.classList.contains('swap-active')){
+        showImage();
+      }
+    });
+
+    const biomixerObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if(entry.isIntersecting && !isRunning){
+          isRunning = true;
+          showVideo();
+        } else if(!entry.isIntersecting && isRunning){
+          isRunning = false;
+          video.pause();
+          clearCycleTimer();
+        }
+      });
+    }, {threshold:0.4});
+    biomixerObserver.observe(swapWrap);
+  })();
+
+  const machineIconSvg = '<svg viewBox="0 0 54 54" fill="none" aria-hidden="true"><rect x="8" y="14" width="38" height="26" rx="2" stroke="#6b6b6b" stroke-width="1.5"/><line x1="14" y1="22" x2="40" y2="22" stroke="#6b6b6b" stroke-width="1"/><line x1="14" y1="30" x2="40" y2="30" stroke="#6b6b6b" stroke-width="1"/><circle cx="20" cy="46" r="3" stroke="#6b6b6b" stroke-width="1.5"/><circle cx="34" cy="46" r="3" stroke="#6b6b6b" stroke-width="1.5"/></svg>';
+  const miniPlaySvg = '<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M9 7 L18 12 L9 17 Z" fill="#ffffff"/></svg>';
+
+  const dimensionDisclaimerLabels = ["Dimensioni macchina", "Dimensioni blister"];
+  const dimensionNoteText = "Richiedere info ai nostri uffici tecnici per eventuali custom service";
+  const dimensionDisclaimerLabelsEN = ["Machine dimensions", "Blister dimensions"];
+  const dimensionNoteTextEN = "Please contact our technical office for any custom service requirements";
+
+  const productData = {
+    blisteratrici: { badge:"Blisteratrici", title:"Linee Blisteratrici", intro:"Macchine blisteratrici per prodotti solidi, dalla piccola produzione fino all'alta velocità. Costruzione INOX Balcony Style, design cGMP e macchinabilità di ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC e PET su tutti i modelli.",
+      models: [
+        { id:"XP", name:"Blisteratrice XP", tagline:"La soluzione ideale per piccole produzioni", specs:[["Velocità massima","fino a 35-50 blister/min"],["Dimensioni blister","30x60x3 — 100x150x12 mm"],["Alimentazione prodotti","Manuale o automatica"],["Meccanismo","Elettro-pneumatico"],["Saldatura","A piastra"],["Linee di formatura","1"],["Dimensioni macchina (LxLxA)","2.700 x 1.050 x 2.000 mm"],["Costruzione","INOX, Balcony Style, cGMP"]],
+          features:[
+            "Macchina compatta a movimento elettro-pneumatico, pensata per piccoli lotti, clinical trials e reparti R&D",
+            "Formatura tramite imbutitura pneumatica con stazione di preriscaldo ad apertura automatica delle piastre in caso di arresto, per evitare danneggiamenti e bruciature del film",
+            "Saldatura eseguita in piano: il prodotto resta sullo stesso piano di lavoro dal riempimento alla saldatura, senza sbalzi tra le stazioni",
+            "Zona di produzione interamente in acciaio inox, conforme alle direttive farmaceutiche cGMP",
+            "Cambio formato rapido senza l'ausilio di utensili",
+            "Pannello operatore intuitivo per l'impostazione e il richiamo rapido dei parametri macchina",
+            "Disponibile anche in versione per blister ALU/ALU"
+          ]
+        },
+        { id:"X1", name:"Blisteratrice X1", tagline:"Robusta, per piccole e medie produzioni", specs:[["Velocità massima","fino a 120 blister/min"],["Dimensioni blister","30x60x3 — 100x150x12 mm"],["Alimentazione prodotti","Automatica"],["Diametro bobina formatura","Max. 400 mm"],["Saldatura","A piastra"],["Linee di formatura","1 o 2"],["Dimensioni macchina (LxLxA)","2.000 x 1.180 x 2.000 mm"],["Costruzione","INOX, Balcony Style, cGMP"]],
+          features:[
+            "Macchina compatta monolinea per la termoformatura di film plastici, progettata seguendo le normative cGMP",
+            "Telaio estremamente stabile composto da casse assemblate; zona di produzione interamente in acciaio inox con superficie rifinita a satinatura meccanica",
+            "Facile accessibilità per le operazioni di pulizia, senza aree di possibile stagnazione liquidi",
+            "Carter trasparenti ad elevata resistenza a urti e graffi, con protezioni metalliche in acciaio inox",
+            "Struttura compatta con ingombri ridotti e svolgitura automatica del PVC",
+            "Cambio formato rapido, senza ausilio di utensili",
+            "Disponibile anche in versione per blister ALU/ALU"
+          ]
+        },
+        { id:"X8", name:"Blisteratrice X8", tagline:"Media velocità, alta capacità bobina", specs:[["Velocità massima","fino a 150 blister/min"],["Dimensioni blister","30x60x3 — 100x150x12 mm"],["Alimentazione prodotti","Automatica"],["Diametro bobina formatura","Max. 800 mm"],["Saldatura","A piastra"],["Linee di formatura","1"],["Dimensioni macchina (LxLxA)","3.000 x 1.200 x 2.000 mm"],["Costruzione","INOX, Balcony Style, cGMP"]],
+          features:[
+            "Blisteratrice a movimento intermittente con alta capacità bobina, ideale per produzioni a cadenza media senza fermi frequenti per il cambio rotolo",
+            "Sistema di formatura tramite imbutitura pneumatica con preriscaldo a piastre e apertura automatica di sicurezza in caso di arresto macchina",
+            "Saldatura a piastra eseguita in piano, con sistema di raffreddamento integrato per la zona formatura e saldatura",
+            "Alimentazione automatica del prodotto, integrabile con sistemi di controllo presenza tramite telecamera",
+            "Telaio a struttura Balcony Style in acciaio inox, per la massima accessibilità a pulizia e manutenzione",
+            "Cambio formato rapido sui gruppi di formatura, alimentazione e saldatura, senza ausilio di utensili",
+            "Controllo macchina tramite PC industriale con pannello operatore touch screen"
+          ]
+        },
+        { id:"X2", name:"Blisteratrice X2", tagline:"Alta velocità, saldatura a rullo", specs:[["Velocità massima","fino a 300 blister/min"],["Dimensioni blister","30x60x3 — 90x140x12 mm"],["Alimentazione prodotti","Automatica"],["Diametro bobina formatura","Max. 800 mm"],["Saldatura","A rullo"],["Linee di formatura","1"],["Dimensioni macchina (LxLxA)","4.500 x 1.400 x 2.000 mm"],["Costruzione","INOX, Balcony Style, cGMP"]],
+          features:[
+            "Macchina ad alta velocità con saldatura a rullo continuo, per produzioni farmaceutiche su grandi volumi",
+            "Movimento continuo del nastro termoformato, senza soste tra formatura, riempimento e saldatura, per massimizzare la cadenza produttiva",
+            "Macchinabilità di ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC e PET, con coperture in alluminio o materiali compositi",
+            "Zona di formatura e saldatura con impianto di raffreddamento integrato per garantire la stabilità dimensionale del blister anche alle alte cadenze",
+            "Struttura Balcony Style in acciaio inox, con totale separazione tra zona di processo farmaceutico e zona di comando macchina",
+            "Alimentazione prodotto automatica con possibilità di integrazione di sistemi robotizzati di carico",
+            "Cambio formato rapido su tutti i gruppi principali, con richiamo automatico dei parametri da pannello operatore"
+          ]
+        },
+        { id:"X3", name:"Blisteratrice X3", tagline:"Massima produttività, doppia linea", specs:[["Velocità massima","fino a 600 blister/min"],["Dimensioni blister","30x60x3 — 90x140x12 mm"],["Alimentazione prodotti","Automatica"],["Diametro bobina formatura","Max. 800 mm"],["Saldatura","A rullo"],["Linee di formatura","2"],["Dimensioni macchina (LxLxA)","5.500 x 1.400 x 2.000 mm"],["Costruzione","INOX, Balcony Style, cGMP"]] }
+      ] },
+    termoformatrici: { badge:"Termoformatrici", title:"Linee di Termoformatura — Blister & Tray", intro:"Termoformatrici profonde per cassonetti e tray, idonee anche a dispositivi medici e siringhe. Macchinabilità di ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC, PET con coperture Alu-Hard, Alu-Soft, Alu-Carta o Alu-Poliestere.",
+      models: [
+        { id:"R1", name:"Termoformatrice R1", tagline:"Alimentazione e saldatura su giostra rotante", specs:[["Produzione","50 cassonetti/min"],["Tray minimo (LxLxA)","30 x 30 x 10 mm"],["Tray massimo (LxLxA)","200 x 120 x 30 mm"],["Alimentazione prodotti","Manuale o automatica"],["Diametro bobina formatura","Max. 800 mm"],["Saldatura","A piastra"],["Dimensioni macchina (LxLxA)","3.200 x 1.750 x 2.000 mm"]],
+          features:[
+            "Termoformatrice profonda per cassonetti e tray, con alimentazione e saldatura organizzate su giostra rotante per un flusso di lavoro compatto",
+            "Idonea anche al confezionamento di dispositivi medici e siringhe, oltre ai tradizionali tray per prodotti solidi orali",
+            "Macchinabilità di ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC e PET con coperture Alu-Hard, Alu-Soft, Alu-Carta o Alu-Poliestere",
+            "Stazione di preriscaldo e formatura con apertura automatica delle piastre in caso di arresto, per proteggere il film plastico",
+            "Sistema di raffreddamento integrato per la zona di formatura e saldatura",
+            "Alimentazione manuale o automatica del prodotto, a seconda delle esigenze produttive",
+            "Cambio formato rapido senza ausilio di utensili sui gruppi principali"
+          ]
+        },
+        { id:"R4", name:"Termoformatrice R4", tagline:"Macchina in linea, alimentazioni automatizzate", specs:[["Produzione","50 cassonetti/min"],["Tray minimo (LxLxA)","30 x 30 x 10 mm"],["Tray massimo (LxLxA)","200 x 120 x 30 mm"],["Alimentazione prodotti","Automatizzata per vaste gamme di prodotti"],["Diametro bobina formatura","Max. 800 mm"],["Saldatura","A piastra"],["Dimensioni macchina (LxLxA)","5.500 x 1.400 x 2.000 mm"]] }
+      ] },
+    cartonatrici: { badge:"Astucciatrici", title:"Linee Astucciatrici", intro:"Confezionamento blister/tray in astuccio completamente automatizzato, con costruzione compatta facile da integrare in linee di produzione esistenti. Possibilità di installazione di gruppi opzionali per diverse chiusure astuccio e Track & Trace integrato.",
+      models: [
+        { id:"A1", name:"Astucciatrice A1 King Size", tagline:"Configurazione alternata", specs:[["Produzione","150 astucci/min"],["Astuccio minimo (LxLxA)","35 x 70 x 12 mm"],["Blister massimo (LxLxA)","95 x 250 x 100 mm"],["Cambio formato","10 minuti"],["Peso","2.200 kg"],["Costruzione","INOX, Balcony Style, cGMP"]],
+          features:[
+            "Astucciatrice orizzontale a configurazione alternata, dedicata al formato King Size per blister e tray di grandi dimensioni",
+            "Prelievo astucci da magazzino tramite ventose, formatura del cartone e caricamento laterale del prodotto nella catenaria di alimentazione",
+            "Chiusura dei lembi a colla o a incastro, con stazione di codifica per la stampa di dati variabili sull'astuccio",
+            "Struttura a balcone in acciaio inox, che separa la zona di processo da quella di comando per facilitare manutenzione e pulizia",
+            "Predisposizione per gruppi opzionali di inserimento foglietto illustrativo e Track & Trace integrato",
+            "Cambio formato rapido sui gruppi di formazione astuccio, caricamento e chiusura"
+          ]
+        },
+        { id:"A2", name:"Astucciatrice A2", tagline:"Configurazione alternata, compatta", specs:[["Produzione","150 astucci/min"],["Astuccio minimo (LxLxA)","35 x 70 x 12 mm"],["Blister massimo (LxLxA)","95 x 145 x 100 mm"],["Cambio formato","10 minuti"],["Peso","2.200 kg"],["Costruzione","INOX, Balcony Style, cGMP"]] }
+      ] },
+    deblisteratrici: { badge:"Deblisteratrici", title:"Linee Deblisteratrici", intro:"Recupero completo dei prodotti senza alcun danno: dalla soluzione manuale per piccoli volumi fino all'estrazione automatica con vuoto, punzoni e controllo qualità in linea per le cadenze più elevate, anche su materiali child-proof.",
+      models: [
+        { id:"DBM", name:"Deblisteratrice DBM", tagline:"Manuale, estremamente semplice da maneggiare", specs:[["Configurazione","Manuale"],["Sistema","Punzoni"],["Blister massimo","900 x 140 x 13 mm"],["Cambio formato","1 minuto"],["Peso","16 kg"],["Costruzione","Acciaio inossidabile"]],
+          features:[
+            "Dispositivo manuale per il recupero di compresse e capsule da blister scartati, ideale per piccoli volumi e laboratori R&D",
+            "Estrazione del prodotto tramite sistema a punzoni, che separa delicatamente le unità senza danneggiarle",
+            "Meccanismo regolabile per adattarsi a diversi formati di blister, senza necessità di parti di ricambio dedicate",
+            "Struttura interamente in acciaio inossidabile, leggera e compatta, facile da posizionare vicino a ogni linea blister",
+            "Nessun collegamento elettrico richiesto: funzionamento completamente meccanico ad azionamento manuale",
+            "Garantisce un'elevata percentuale di prodotto integro recuperato dai blister difettosi"
+          ]
+        },
+        { id:"C2", name:"Deblisteratrice C2", tagline:"Semi-automatica, soluzione compatta per piccoli lotti", specs:[["Configurazione","Semi-automatica"],["Sistema","Rulli"],["Produzione","fino a 25 blister/min"],["Blister massimo","120 x 80 x 10 mm"],["Cambio formato","meno di 1 minuto"],["Peso","85 kg"],["Costruzione","AISI 304, cGMP"]],
+          features:[
+            "Deblisteratrice semi-automatica compatta, pensata per il recupero di piccoli lotti di prodotto da blister scartati",
+            "Sistema di estrazione a rulli, che applica una pressione minima e controllata per non danneggiare il prodotto né il film",
+            "Costruzione in acciaio inox AISI 304 conforme alle normative cGMP del settore farmaceutico",
+            "Cambio formato in meno di un minuto, senza necessità di utensili dedicati",
+            "Dimensioni e peso contenuti: si posiziona facilmente accanto a ogni linea di blisteratura o astucciamento",
+            "Riduce gli sprechi recuperando in modo efficiente compresse e capsule da blister non conformi"
+          ]
+        },
+        { id:"C3", name:"Deblisteratrice C3", tagline:"Semi-automatica, estrazione a rulli", specs:[["Configurazione","Semi-automatica"],["Sistema","Rulli"],["Produzione","fino a 40 blister/min"],["Blister massimo","148 x 100 x 12 mm"],["Cambio formato","meno di 1 minuto"],["Peso","110 kg"],["Costruzione","AISI 316, cGMP"]],
+          features:[
+            "Deblisteratrice semi-automatica con cadenza superiore rispetto al modello C2, per volumi di recupero più consistenti",
+            "Sistema di estrazione a rulli regolabili, adattabile a diversi formati e spessori di blister",
+            "Costruzione in acciaio inox AISI 316 conforme cGMP, idonea agli ambienti farmaceutici più esigenti",
+            "Cambio formato in meno di un minuto, grazie a regolazioni rapide senza utensili",
+            "Permette di separare in modo efficace il prodotto recuperato da pellicola e materiale di copertura",
+            "Riduzione concreta degli sprechi di produzione sui lotti con blister non conformi"
+          ]
+        },
+        { id:"C4", name:"Deblisteratrice C4", tagline:"Automatica, estrazione a punzoni per cadenze medie", specs:[["Configurazione","Automatica"],["Sistema","Punzoni"],["Produzione","fino a 45 blister/min"],["Blister minimo","30 x 60 x 3 mm"],["Blister massimo","148 x 100 x 12 mm"],["Cambio formato","meno di 1 minuto"],["Peso","130 kg"],["Costruzione","AISI 316, cGMP"]],
+          features:[
+            "Deblisteratrice completamente automatica, pensata per cadenze di recupero medie senza intervento manuale continuo",
+            "Sistema di estrazione a punzoni, calibrato per espellere il prodotto dal blister senza comprometterne l'integrità",
+            "Gestisce un'ampia gamma di formati blister, dal più piccolo al più grande della gamma C-Series",
+            "Costruzione in acciaio inox AISI 316 conforme cGMP, per il pieno rispetto degli standard farmaceutici",
+            "Cambio formato in meno di un minuto su tutti i gruppi principali della macchina",
+            "Funzionamento automatico continuo, ideale per l'integrazione a fine linea di blisteratura"
+          ]
+        },
+        { id:"C6", name:"Deblisteratrice C6", tagline:"Automatica, estrazione con vuoto e punzoni", specs:[["Configurazione","Automatica"],["Sistema","Punzoni"],["Produzione","fino a 50 blister/min"],["Blister minimo","30 x 60 x 3 mm"],["Blister massimo","90 (148) x 140 (100) x 12-13 mm"],["Materiali","Tutti, incluso child-proof"],["Peso","150 kg"],["Costruzione","AISI 316, cGMP"]],
+          features:[
+            "Deblisteratrice automatica con sistema combinato a vuoto e punzoni, per il recupero anche di blister con chiusura child-proof",
+            "Estrazione delicata e controllata, che minimizza il rischio di danneggiare il prodotto o di lasciare residui di film sulle compresse",
+            "Gestisce l'intera gamma di formati blister della serie C, dal più piccolo al più grande",
+            "Costruzione in acciaio inox AISI 316 conforme cGMP, per ambienti farmaceutici ad alta esigenza igienica",
+            "Cambio formato rapido, in meno di un minuto, su tutti i gruppi della macchina",
+            "Compatibile con tutti i principali materiali di formatura e copertura, inclusi i sistemi anti-manomissione"
+          ]
+        },
+        { id:"C7", name:"Deblisteratrice C7", tagline:"Automatica con controllo qualità in linea, la più recente della gamma", specs:[["Configurazione","Automatica"],["Sistema","Vuoto e punzoni con telecamera di controllo"],["Produzione","fino a 60 blister/min"],["Blister minimo","30 x 60 x 3 mm"],["Blister massimo","90 (148) x 140 (100) x 12-13 mm"],["Materiali","Tutti, incluso child-proof"],["Peso","160 kg"],["Costruzione","AISI 316, cGMP"]] }
+      ] },
+    contatrici: { badge:"Contatrici", title:"Linea Contatrici Abaco & G1", intro:"Contatrici per tutti i tipi di prodotti solidi: semplici, affidabili e di dimensioni ridotte. Tutte le parti a diretto contatto con il prodotto sono in AISI 316L con certificazione di conformità FDA, prodotto alimentato con vuoto.",
+      models: [
+        { id:"Abaco", name:"Contatrice Abaco", tagline:"Il modello storico per dosaggio per conteggio", specs:[["Velocità massima","fino a 600 prodotti/min"],["Materiali a contatto prodotto","AISI 316L, certificazione FDA"],["Alimentazione prodotto","Con vuoto"],["Costruzione","Conforme cGMP"]],
+          features:[
+            "Contatrice multi-canale per il dosaggio per conteggio di compresse, capsule e prodotti solidi di ogni forma",
+            "Alimentazione del prodotto tramite sistema a vuoto, per un flusso uniforme verso i canali di conteggio senza vibrazioni eccessive",
+            "Conteggio tramite sensori di precisione che rilevano ogni singola unità al momento del passaggio verso il contenitore",
+            "Tutte le parti a contatto diretto con il prodotto sono in acciaio inox AISI 316L, con certificazione di conformità FDA",
+            "Costruzione interamente conforme alle normative cGMP del settore farmaceutico e nutraceutico",
+            "Versatile su un'ampia gamma di prodotti solidi: compresse, capsule, softgel e piccoli componenti"
+          ]
+        },
+        { id:"G1", name:"Contatrice G1", tagline:"Versione compatta di nuova generazione con verifica conteggio", specs:[["Velocità massima","fino a 450 prodotti/min"],["Dimensioni macchina","Ridotte rispetto al modello Abaco"],["Materiali a contatto prodotto","AISI 316L, certificazione FDA"],["Controllo qualità","Telecamera di verifica conteggio in linea"],["Costruzione","Conforme cGMP"]] }
+      ] },
+    casepacker: { badge:"Cartonatrice", title:"Cartonatrici F16 & F18", intro:"Imballaggio di astucci in cartone con sistema Side Load. Disponibili opzionali per tracciabilità e aggregazione con telecamera dedicata di Case Content, Print & Apply e pallettizzazione robotizzata.",
+      models: [
+        { id:"F16", name:"Cartonatrice F16", tagline:"Sistema Side Load compatto, per cadenze contenute", specs:[["Produzione","fino a 8 cartoni/min"],["Cartone minimo (AxBxH)","150 x 200 x 250 mm"],["Cartone massimo (AxBxH)","150 x 450 x 480 mm"],["Astuccio minimo (BxAxH)","12 x 35 x 70 mm"],["Astuccio massimo (BxAxH)","95 x 100 x 145 mm"],["Opzionali","Track & Trace, Print & Apply"],["Costruzione","Conforme cGMP"]],
+          features:[
+            "Cartonatrice con sistema Side Load, in versione compatta pensata per cadenze produttive contenute",
+            "Formazione automatica del cartone a partire da fustellato piano, con apertura e squadratura precisa prima del caricamento",
+            "Caricamento laterale degli astucci nel cartone, con disposizione ordinata per massimizzare la stabilità del pallet finale",
+            "Sigillatura del cartone tramite nastro adesivo o colla a caldo, a seconda della configurazione richiesta",
+            "Predisposizione per gruppi opzionali di Track & Trace e Print & Apply per etichettatura e tracciabilità di lotto",
+            "Costruzione conforme cGMP, adatta a contesti farmaceutici con requisiti di confezionamento secondario controllato"
+          ]
+        },
+        { id:"F18", name:"Cartonatrice F18", tagline:"Sistema Side Load, eccezionale accessibilità", specs:[["Produzione","fino a 12 cartoni/min"],["Cartone minimo (AxBxH)","150 x 200 x 250 mm"],["Cartone massimo (AxBxH)","150 x 510 x 520 mm"],["Astuccio minimo (BxAxH)","12 x 35 x 70 mm"],["Astuccio massimo (BxAxH)","95 x 100 x 145 mm"],["Opzionali","Track & Trace, Print & Apply, pallettizzazione robotizzata"],["Costruzione","Conforme cGMP"]],
+          features:[
+            "Cartonatrice con sistema Side Load e cadenza produttiva superiore al modello F16, per linee con volumi più elevati",
+            "Eccezionale accessibilità ai gruppi macchina, pensata per ridurre i tempi di intervento in manutenzione e cambio formato",
+            "Formazione, caricamento laterale e sigillatura del cartone completamente automatizzati, con gestione di un'ampia gamma di formati",
+            "Disponibili opzionali per tracciabilità e aggregazione con telecamera dedicata di Case Content",
+            "Predisposizione per gruppi Print & Apply e per la pallettizzazione robotizzata a fine linea",
+            "Costruzione conforme cGMP, integrabile a valle di linee di astucciamento e Track & Trace ICS"
+          ]
+        }
+      ] },
+    tracktrace: { badge:"Track & Trace", title:"Serializzazione e Aggregazione", intro:"Sistema di tracciabilità realizzato in collaborazione con il nostro partner Retinae. Telecamere OCR/OCV per il controllo di qualità della stampa dei dati variabili e del codice 2D sull'astuccio singolo, con gestione e impostazione rapida dei formati.",
+      models: [
+        { id:"Stazione Track & Trace", name:"Stazione Track & Trace", tagline:"In collaborazione con Retinae", specs:[["Controllo qualità","Telecamere OCR/OCV su dati variabili e codice 2D"],["Gestione formati","Impostazioni rapide"],["Costruzione","INOX, Balcony Style, cGMP"],["Manutenzione","Pulizia facile"]],
+          features:[
+            "Sistema di serializzazione e aggregazione sviluppato in collaborazione con il partner tecnologico Retinae",
+            "Telecamere OCR/OCV per il controllo qualità della stampa di dati variabili e del codice 2D su ogni singolo astuccio",
+            "Verifica automatica della leggibilità e correttezza dei codici prima dell'aggregazione in cartone",
+            "Gestione e impostazione rapida dei formati, per minimizzare i tempi di cambio linea",
+            "Struttura Balcony Style in acciaio inox conforme cGMP, con accessibilità ottimizzata per la pulizia",
+            "Integrabile sia a valle delle astucciatrici ICS, sia su linee di cartonamento esistenti"
+          ]
+        }
+      ] },
+    overhauling: { badge:"Overhauling & Revamping", title:"Revisione e Modernizzazione Linee", intro:"Ripristino e miglioramento di macchine e gruppi meccanici obsoleti, con incorporazione delle ultime tecnologie di automazione: dalla revisione meccanica al revamping completo di componenti elettrici ed elettronici.",
+      models: [
+        { id:"Revisione e manutenzione", name:"Revisione e Manutenzione", tagline:"Intervento totale su macchine per il packaging pharma", specs:[["Attività incluse","Revisione meccanica, elettrica ed elettronica completa della macchina"],["Ambito","Macchine per il packaging pharma esistenti, anche di altri costruttori"]],
+          features:[
+            "Intervento completo di revisione su macchine per il packaging farmaceutico già installate, anche di altri costruttori",
+            "Controllo e verifica di tutti i gruppi meccanici, pneumatici, elettrici ed elettronici della macchina",
+            "Sostituzione delle parti usurate e ripristino delle tolleranze originali di funzionamento",
+            "Aggiornamento di PLC, HMI e drive obsoleti con tecnologie di automazione moderne, quando richiesto",
+            "Verifica della conformità della macchina agli standard cGMP attuali",
+            "Test funzionale completo a fine intervento, con rilascio di report tecnico dettagliato"
+          ]
+        },
+        { id:"Applicazioni robotiche", name:"Applicazioni Robotiche Integrate", tagline:"Robot Delta e Robot Lineari su misura", specs:[["Tipologie","Robot Delta, Robot Lineari"],["Applicazione","Alimentazione e movimentazione prodotto in linea"],["Progettazione","Su misura per ogni configurazione"]],
+          features:[
+            "Applicazioni robotiche multiple — robot delta e robot lineari — progettate e integrate su misura per l'alimentazione e la movimentazione dei prodotti lungo la linea",
+            "Integrazione anche nelle catene cassetti delle astucciatrici esistenti, per automatizzare fasi precedentemente manuali",
+            "Bracci in materiali leggeri (es. carbonio) per cicli di prelievo rapidi e ripetibili anche ad alta cadenza",
+            "Progetto e realizzazione completamente personalizzati sulle esigenze del cliente e sul layout di linea disponibile",
+            "Possibilità di retrofit su linee esistenti, senza dover sostituire l'intera macchina"
+          ]
+        },
+        { id:"Revamping IMA C60", name:"Revamping Totale: da IMA C60 a ICS X60", tagline:"Caso emblematico di Overhauling completo", specs:[["Macchina di partenza","IMA C60 (blisteratrice/astucciatrice monoblocco)"],["Macchina risultante","ICS X60"],["Interventi","Elettronica, PLC/HMI, ripristino meccanico totale"]],
+          features:[
+            "Una blisteratrice/astucciatrice monoblocco IMA C60 obsoleta è stata completamente rinnovata, dando nuova vita a un asset esistente",
+            "Sostituzione integrale dell'elettronica e dei controlli macchina, con aggiornamento di PLC e HMI",
+            "Ripristino meccanico totale di tutti i gruppi principali: formatura, saldatura, alimentazione e chiusura astuccio",
+            "Pannello operatore touch screen di nuova generazione, con gestione ricette e parametri di formato",
+            "Risultato: prestazioni e affidabilità equivalenti a una macchina nuova, con un investimento nettamente inferiore"
+          ]
+        }
+      ] },
+    custom: { badge:"Custom & Service", title:"Progetti Custom e Assistenza", intro:"Progettazione di macchine e automazioni completamente personalizzate per esigenze produttive specifiche, comprese soluzioni robotiche su misura (robot delta e lineari), affiancate da un servizio di assistenza tecnica continuativo.",
+      models: [
+        { id:"Studio di fattibilità", name:"Studio di Fattibilità", tagline:"Analisi preliminare delle esigenze", specs:[["Attività","Analisi esigenze produttive e vincoli di linea"],["Output","Documento di specifica tecnica"]],
+          features:[
+            "Analisi approfondita delle esigenze produttive del cliente: prodotto, cadenze richieste, vincoli di spazio e di linea",
+            "Valutazione delle normative applicabili al settore di destinazione (farmaceutico, cosmetico, alimentare, dispositivi medici)",
+            "Identificazione delle tecnologie più adatte tra formatura, riempimento, chiusura e controllo qualità",
+            "Redazione di un documento di specifica tecnica condiviso con il cliente prima di passare alla progettazione",
+            "Base di partenza per ogni progetto custom realizzato da ICS Automazione"
+          ]
+        },
+        { id:"Progettazione e robotica", name:"Progettazione e Soluzioni Robotiche", tagline:"Robot delta e lineari su misura", specs:[["Attività","Sviluppo meccanico, elettronico e applicazioni robotiche custom"],["Output","Disegni costruttivi, schemi elettrici, robot integrato"]],
+          features:[
+            "Sviluppo meccanico ed elettronico completo della macchina o linea custom, a partire dalla specifica tecnica concordata",
+            "Progettazione e integrazione di applicazioni robotiche su misura: robot delta e robot lineari per alimentazione e movimentazione",
+            "Produzione di disegni costruttivi dettagliati e schemi elettrici completi per ogni gruppo macchina",
+            "Simulazione e validazione del ciclo di lavoro prima della fase di costruzione, per minimizzare le revisioni successive",
+            "Integrazione delle soluzioni robotiche anche nelle catene cassetti delle astucciatrici esistenti"
+          ]
+        },
+        { id:"Realizzazione e assistenza", name:"Realizzazione e Assistenza", tagline:"Costruzione, collaudo e supporto continuativo", specs:[["Attività","Costruzione, collaudo, installazione, assistenza post-vendita"],["Output","Macchina collaudata e supporto tecnico continuativo"]],
+          features:[
+            "Costruzione della macchina o linea custom presso il nostro reparto di montaggio a Castel San Pietro Terme",
+            "Collaudo completo in fabbrica prima della spedizione, con verifica di tutte le specifiche concordate con il cliente",
+            "Installazione e messa in servizio presso lo stabilimento del cliente, con formazione del personale operativo",
+            "Assistenza tecnica post-vendita continuativa, con tecnici dedicati al supporto delle linee installate",
+            "100% Made in Italy, grazie a una rete di fornitori locali selezionati e qualificati"
+          ]
+        }
+      ] }
+  };
+
+  /* ===== Traduzioni EN per i dati dinamici dei prodotti ===== */
+  const productDataEN = {
+    blisteratrici: { badge:"Blister Machines", title:"Blister Packaging Lines", intro:"Blister packaging machines for solid products, from small-scale production up to high speed. INOX Balcony Style construction, cGMP design and machinability of ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC and PET on all models.",
+      models: {
+        "XP": { name:"Blister Machine XP", tagline:"The ideal solution for small productions",
+          specLabels:["Maximum speed","Blister dimensions","Product feeding","Mechanism","Sealing","Forming lines","Machine dimensions (LxWxH)","Construction"],
+          specValues:["up to 35-50 blisters/min","30x60x3 — 100x150x12 mm","Manual or automatic","Electro-pneumatic","Plate sealing","1","2,700 x 1,050 x 2,000 mm","INOX, Balcony Style, cGMP"],
+          features:[
+            "Compact machine with electro-pneumatic motion, designed for small batches, clinical trials and R&D departments",
+            "Forming via pneumatic deep-drawing with a preheating station and automatic plate opening on stoppage, to prevent film damage and burning",
+            "Flat-plane sealing: the product stays on the same working plane from filling to sealing, with no level changes between stations",
+            "Production area entirely in stainless steel, compliant with cGMP pharmaceutical directives",
+            "Fast format change with no tools required",
+            "Intuitive operator panel for quick setup and recall of machine parameters",
+            "Also available in an ALU/ALU blister version"
+          ]
+        },
+        "X1": { name:"Blister Machine X1", tagline:"Robust, for small and medium productions",
+          specLabels:["Maximum speed","Blister dimensions","Product feeding","Forming reel diameter","Sealing","Forming lines","Machine dimensions (LxWxH)","Construction"],
+          specValues:["up to 120 blisters/min","30x60x3 — 100x150x12 mm","Automatic","Max. 400 mm","Plate sealing","1 or 2","2,000 x 1,180 x 2,000 mm","INOX, Balcony Style, cGMP"],
+          features:[
+            "Compact single-line machine for thermoforming plastic films, designed according to cGMP regulations",
+            "Extremely stable frame made of assembled housings; production area entirely in stainless steel with a mechanically satin-finished surface",
+            "Easy access for cleaning operations, with no areas where liquid could stagnate",
+            "Transparent guards highly resistant to impact and scratching, with stainless steel metal protections",
+            "Compact structure with reduced footprint and automatic PVC unwinding",
+            "Fast format change, with no tools required",
+            "Also available in an ALU/ALU blister version"
+          ]
+        },
+        "X8": { name:"Blister Machine X8", tagline:"Medium speed, high reel capacity",
+          specLabels:["Maximum speed","Blister dimensions","Product feeding","Forming reel diameter","Sealing","Forming lines","Machine dimensions (LxWxH)","Construction"],
+          specValues:["up to 150 blisters/min","30x60x3 — 100x150x12 mm","Automatic","Max. 800 mm","Plate sealing","1","3,000 x 1,200 x 2,000 mm","INOX, Balcony Style, cGMP"],
+          features:[
+            "Intermittent-motion blister machine with high reel capacity, ideal for medium-paced production without frequent stops for roll changes",
+            "Forming system via pneumatic deep-drawing with plate preheating and automatic safety opening on machine stoppage",
+            "Flat-plane plate sealing, with an integrated cooling system for the forming and sealing area",
+            "Automatic product feeding, integrable with camera-based presence control systems",
+            "Balcony Style stainless steel frame structure, for maximum accessibility for cleaning and maintenance",
+            "Fast format change on the forming, feeding and sealing units, with no tools required",
+            "Machine control via industrial PC with touch screen operator panel"
+          ]
+        },
+        "X2": { name:"Blister Machine X2", tagline:"High speed, roller sealing",
+          specLabels:["Maximum speed","Blister dimensions","Product feeding","Forming reel diameter","Sealing","Forming lines","Machine dimensions (LxWxH)","Construction"],
+          specValues:["up to 300 blisters/min","30x60x3 — 90x140x12 mm","Automatic","Max. 800 mm","Roller sealing","1","4,500 x 1,400 x 2,000 mm","INOX, Balcony Style, cGMP"],
+          features:[
+            "High-speed machine with continuous roller sealing, for high-volume pharmaceutical production",
+            "Continuous motion of the thermoformed strip, with no pauses between forming, filling and sealing, to maximise production rate",
+            "Machinability of ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC and PET, with aluminium or composite material covers",
+            "Forming and sealing area with an integrated cooling system to ensure blister dimensional stability even at high rates",
+            "Balcony Style stainless steel structure, with total separation between the pharmaceutical process area and the machine control area",
+            "Automatic product feeding with the possibility of integrating robotic loading systems",
+            "Fast format change on all main units, with automatic parameter recall from the operator panel"
+          ]
+        },
+        "X3": { name:"Blister Machine X3", tagline:"Maximum productivity, dual line",
+          specLabels:["Maximum speed","Blister dimensions","Product feeding","Forming reel diameter","Sealing","Forming lines","Machine dimensions (LxWxH)","Construction"],
+          specValues:["up to 600 blisters/min","30x60x3 — 90x140x12 mm","Automatic","Max. 800 mm","Roller sealing","2","5,500 x 1,400 x 2,000 mm","INOX, Balcony Style, cGMP"] }
+      } },
+    termoformatrici: { badge:"Thermoformers", title:"Thermoforming Lines — Blister &amp; Tray", intro:"Deep thermoforming machines for trays, also suitable for medical devices and syringes. Machinability of ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC, PET with Alu-Hard, Alu-Soft, Alu-Paper or Alu-Polyester covers.",
+      models: {
+        "R1": { name:"Thermoformer R1", tagline:"Feeding and sealing on a rotary carousel",
+          specLabels:["Production","Minimum tray (LxWxH)","Maximum tray (LxWxH)","Product feeding","Forming reel diameter","Sealing","Machine dimensions (LxWxH)"],
+          specValues:["50 trays/min","30 x 30 x 10 mm","200 x 120 x 30 mm","Manual or automatic","Max. 800 mm","Plate sealing","3,200 x 1,750 x 2,000 mm"],
+          features:[
+            "Deep thermoformer for trays, with feeding and sealing organised on a rotary carousel for a compact workflow",
+            "Also suitable for packaging medical devices and syringes, in addition to traditional trays for oral solid products",
+            "Machinability of ALU/ALU, PVC, PVC/PVDC, PVC/ACLAR, COC and PET with Alu-Hard, Alu-Soft, Alu-Paper or Alu-Polyester covers",
+            "Preheating and forming station with automatic plate opening on stoppage, to protect the plastic film",
+            "Integrated cooling system for the forming and sealing area",
+            "Manual or automatic product feeding, depending on production needs",
+            "Fast format change with no tools required on the main units"
+          ]
+        },
+        "R4": { name:"Thermoformer R4", tagline:"In-line machine, automated feeding",
+          specLabels:["Production","Minimum tray (LxWxH)","Maximum tray (LxWxH)","Product feeding","Forming reel diameter","Sealing","Machine dimensions (LxWxH)"],
+          specValues:["50 trays/min","30 x 30 x 10 mm","200 x 120 x 30 mm","Automated for a wide range of products","Max. 800 mm","Plate sealing","5,500 x 1,400 x 2,000 mm"] }
+      } },
+    cartonatrici: { badge:"Cartoning Machines", title:"Cartoning Lines", intro:"Fully automated blister/tray-to-carton packaging, with a compact construction easy to integrate into existing production lines. Optional units available for different carton closures and integrated Track &amp; Trace.",
+      models: {
+        "A1": { name:"Cartoning Machine A1 King Size", tagline:"Alternating configuration",
+          specLabels:["Production","Minimum carton (LxWxH)","Maximum blister (LxWxH)","Format change","Weight","Construction"],
+          specValues:["150 cartons/min","35 x 70 x 12 mm","95 x 250 x 100 mm","10 minutes","2,200 kg","INOX, Balcony Style, cGMP"],
+          features:[
+            "Horizontal cartoning machine with alternating configuration, dedicated to the King Size format for large blisters and trays",
+            "Carton pickup from the magazine via suction cups, carton forming and side loading of the product into the feeding chain",
+            "Flap closure with glue or tuck-in, with a coding station for printing variable data on the carton",
+            "Balcony-style stainless steel structure, separating the process area from the control area to ease maintenance and cleaning",
+            "Provision for optional leaflet insertion units and integrated Track &amp; Trace",
+            "Fast format change on the carton forming, loading and closing units"
+          ]
+        },
+        "A2": { name:"Cartoning Machine A2", tagline:"Alternating configuration, compact",
+          specLabels:["Production","Minimum carton (LxWxH)","Maximum blister (LxWxH)","Format change","Weight","Construction"],
+          specValues:["150 cartons/min","35 x 70 x 12 mm","95 x 145 x 100 mm","10 minutes","2,200 kg","INOX, Balcony Style, cGMP"] }
+      } },
+    deblisteratrici: { badge:"Deblistering Machines", title:"Deblistering Lines", intro:"Complete product recovery without any damage: from a manual solution for small volumes to automatic extraction with vacuum, punches and in-line quality control for the highest rates, even on child-proof materials.",
+      models: {
+        "DBM": { name:"Deblistering Machine DBM", tagline:"Manual, extremely simple to handle",
+          specLabels:["Configuration","System","Maximum blister","Format change","Weight","Construction"],
+          specValues:["Manual","Punches","900 x 140 x 13 mm","1 minute","16 kg","Stainless steel"],
+          features:[
+            "Manual device for recovering tablets and capsules from rejected blisters, ideal for small volumes and R&D labs",
+            "Product extraction via a punch system, gently separating units without damaging them",
+            "Adjustable mechanism to adapt to different blister formats, with no need for dedicated spare parts",
+            "Structure entirely in stainless steel, lightweight and compact, easy to place next to any blister line",
+            "No electrical connection required: fully mechanical, manually operated",
+            "Ensures a high percentage of intact product recovered from defective blisters"
+          ]
+        },
+        "C2": { name:"Deblistering Machine C2", tagline:"Semi-automatic, compact solution for small batches",
+          specLabels:["Configuration","System","Production","Maximum blister","Format change","Weight","Construction"],
+          specValues:["Semi-automatic","Rollers","up to 25 blisters/min","120 x 80 x 10 mm","less than 1 minute","85 kg","AISI 304, cGMP"],
+          features:[
+            "Compact semi-automatic deblistering machine, designed to recover small batches of product from rejected blisters",
+            "Roller-based extraction system, applying minimal, controlled pressure to avoid damaging the product or film",
+            "Stainless steel AISI 304 construction compliant with pharmaceutical cGMP regulations",
+            "Format change in under a minute, with no dedicated tools required",
+            "Compact size and weight: easily placed next to any blistering or cartoning line",
+            "Reduces waste by efficiently recovering tablets and capsules from non-compliant blisters"
+          ]
+        },
+        "C3": { name:"Deblistering Machine C3", tagline:"Semi-automatic, roller extraction",
+          specLabels:["Configuration","System","Production","Maximum blister","Format change","Weight","Construction"],
+          specValues:["Semi-automatic","Rollers","up to 40 blisters/min","148 x 100 x 12 mm","less than 1 minute","110 kg","AISI 316, cGMP"],
+          features:[
+            "Semi-automatic deblistering machine with a higher rate than the C2 model, for more substantial recovery volumes",
+            "Adjustable roller extraction system, adaptable to different blister formats and thicknesses",
+            "Stainless steel AISI 316 construction compliant with cGMP, suitable for the most demanding pharmaceutical environments",
+            "Format change in under a minute, thanks to quick tool-free adjustments",
+            "Effectively separates recovered product from film and covering material",
+            "Concrete reduction of production waste on batches with non-compliant blisters"
+          ]
+        },
+        "C4": { name:"Deblistering Machine C4", tagline:"Automatic, punch extraction for medium rates",
+          specLabels:["Configuration","System","Production","Minimum blister","Maximum blister","Format change","Weight","Construction"],
+          specValues:["Automatic","Punches","up to 45 blisters/min","30 x 60 x 3 mm","148 x 100 x 12 mm","less than 1 minute","130 kg","AISI 316, cGMP"],
+          features:[
+            "Fully automatic deblistering machine, designed for medium recovery rates without continuous manual intervention",
+            "Punch extraction system, calibrated to eject the product from the blister without compromising its integrity",
+            "Handles a wide range of blister formats, from the smallest to the largest in the C-Series range",
+            "Stainless steel AISI 316 construction compliant with cGMP, for full compliance with pharmaceutical standards",
+            "Format change in under a minute on all main units of the machine",
+            "Continuous automatic operation, ideal for integration at the end of a blistering line"
+          ]
+        },
+        "C6": { name:"Deblistering Machine C6", tagline:"Automatic, vacuum and punch extraction",
+          specLabels:["Configuration","System","Production","Minimum blister","Maximum blister","Materials","Weight","Construction"],
+          specValues:["Automatic","Punches","up to 50 blisters/min","30 x 60 x 3 mm","90 (148) x 140 (100) x 12-13 mm","All, including child-proof","150 kg","AISI 316, cGMP"],
+          features:[
+            "Automatic deblistering machine with a combined vacuum and punch system, also able to recover child-proof blisters",
+            "Gentle, controlled extraction, minimising the risk of damaging the product or leaving film residue on the tablets",
+            "Handles the entire range of C-series blister formats, from smallest to largest",
+            "Stainless steel AISI 316 construction compliant with cGMP, for highly demanding hygienic pharmaceutical environments",
+            "Fast format change, in under a minute, on all units of the machine",
+            "Compatible with all major forming and covering materials, including tamper-evident systems"
+          ]
+        },
+        "C7": { name:"Deblistering Machine C7", tagline:"Automatic with in-line quality control, the newest in the range",
+          specLabels:["Configuration","System","Production","Minimum blister","Maximum blister","Materials","Weight","Construction"],
+          specValues:["Automatic","Vacuum and punches with inspection camera","up to 60 blisters/min","30 x 60 x 3 mm","90 (148) x 140 (100) x 12-13 mm","All, including child-proof","160 kg","AISI 316, cGMP"] }
+      } },
+    contatrici: { badge:"Counting Machines", title:"Abaco &amp; G1 Counting Line", intro:"Counting machines for all types of solid products: simple, reliable and compact. All product-contact parts are AISI 316L with FDA compliance certification, vacuum-fed product.",
+      models: {
+        "Abaco": { name:"Counting Machine Abaco", tagline:"The historic model for count-based dosing",
+          specLabels:["Maximum speed","Product-contact materials","Product feeding","Construction"],
+          specValues:["up to 600 products/min","AISI 316L, FDA certification","Vacuum","cGMP compliant"],
+          features:[
+            "Multi-channel counting machine for count-based dosing of tablets, capsules and solid products of any shape",
+            "Product feeding via a vacuum system, for a uniform flow into the counting channels without excessive vibration",
+            "Counting via precision sensors that detect each single unit as it passes towards the container",
+            "All parts in direct contact with the product are made of AISI 316L stainless steel, with FDA compliance certification",
+            "Construction fully compliant with cGMP regulations for the pharmaceutical and nutraceutical sectors",
+            "Versatile across a wide range of solid products: tablets, capsules, softgels and small components"
+          ]
+        },
+        "G1": { name:"Counting Machine G1", tagline:"New-generation compact version with count verification",
+          specLabels:["Maximum speed","Machine dimensions","Product-contact materials","Quality control","Construction"],
+          specValues:["up to 450 products/min","Reduced compared to the Abaco model","AISI 316L, FDA certification","In-line count verification camera","cGMP compliant"] }
+      } },
+    casepacker: { badge:"Case Packer", title:"F16 &amp; F18 Case Packers", intro:"Carton packing with Side Load system. Optional units available for traceability and aggregation with dedicated Case Content camera, Print &amp; Apply and robotic palletising.",
+      models: {
+        "F16": { name:"Case Packer F16", tagline:"Compact Side Load system, for contained rates",
+          specLabels:["Production","Minimum case (LxWxH)","Maximum case (LxWxH)","Minimum carton (WxLxH)","Maximum carton (WxLxH)","Optionals","Construction"],
+          specValues:["up to 8 cases/min","150 x 200 x 250 mm","150 x 450 x 480 mm","12 x 35 x 70 mm","95 x 100 x 145 mm","Track &amp; Trace, Print &amp; Apply","cGMP compliant"],
+          features:[
+            "Case packer with Side Load system, in a compact version designed for contained production rates",
+            "Automatic case forming from a flat die-cut blank, with precise opening and squaring before loading",
+            "Side loading of cartons into the case, with orderly arrangement to maximise final pallet stability",
+            "Case sealing via adhesive tape or hot glue, depending on the required configuration",
+            "Provision for optional Track &amp; Trace and Print &amp; Apply units for labelling and batch traceability",
+            "cGMP-compliant construction, suitable for pharmaceutical contexts with controlled secondary packaging requirements"
+          ]
+        },
+        "F18": { name:"Case Packer F18", tagline:"Side Load system, exceptional accessibility",
+          specLabels:["Production","Minimum case (LxWxH)","Maximum case (LxWxH)","Minimum carton (WxLxH)","Maximum carton (WxLxH)","Optionals","Construction"],
+          specValues:["up to 12 cases/min","150 x 200 x 250 mm","150 x 510 x 520 mm","12 x 35 x 70 mm","95 x 100 x 145 mm","Track &amp; Trace, Print &amp; Apply, robotic palletising","cGMP compliant"],
+          features:[
+            "Case packer with Side Load system and a higher production rate than the F16 model, for lines with higher volumes",
+            "Exceptional accessibility to machine units, designed to reduce maintenance and format change intervention times",
+            "Fully automated case forming, side loading and sealing, handling a wide range of formats",
+            "Optional traceability and aggregation available with a dedicated Case Content camera",
+            "Provision for Print &amp; Apply units and for robotic palletising at the end of the line",
+            "cGMP-compliant construction, integrable downstream of ICS cartoning and Track &amp; Trace lines"
+          ]
+        }
+      } },
+    tracktrace: { badge:"Track &amp; Trace", title:"Serialization and Aggregation", intro:"Traceability system developed in collaboration with our partner Retinae. OCR/OCV cameras for quality control of variable data printing and the 2D code on each individual carton, with fast format management and setup.",
+      models: {
+        "Stazione Track & Trace": { name:"Track &amp; Trace Station", tagline:"In collaboration with Retinae",
+          specLabels:["Quality control","Format management","Construction","Maintenance"],
+          specValues:["OCR/OCV cameras on variable data and 2D code","Fast setup","INOX, Balcony Style, cGMP","Easy cleaning"],
+          features:[
+            "Serialization and aggregation system developed in collaboration with technology partner Retinae",
+            "OCR/OCV cameras for quality control of variable data printing and the 2D code on each individual carton",
+            "Automatic verification of code readability and accuracy before case aggregation",
+            "Fast format management and setup, minimising line changeover times",
+            "Balcony Style stainless steel structure compliant with cGMP, with optimised accessibility for cleaning",
+            "Integrable both downstream of ICS cartoning machines and on existing case packing lines"
+          ]
+        }
+      } },
+    overhauling: { badge:"Overhauling &amp; Revamping", title:"Line Revision and Modernisation", intro:"Restoration and improvement of obsolete machines and mechanical units, incorporating the latest automation technologies: from mechanical overhaul to complete revamping of electrical and electronic components.",
+      models: {
+        "Revisione e manutenzione": { name:"Revision and Maintenance", tagline:"Complete intervention on pharma packaging machines",
+          specLabels:["Activities included","Scope"],
+          specValues:["Complete mechanical, electrical and electronic machine revision","Existing pharma packaging machines, including from other manufacturers"],
+          features:[
+            "Complete revision service on already-installed pharmaceutical packaging machines, including those from other manufacturers",
+            "Inspection and verification of all mechanical, pneumatic, electrical and electronic units of the machine",
+            "Replacement of worn parts and restoration of original operating tolerances",
+            "Updating of obsolete PLCs, HMIs and drives with modern automation technologies, where required",
+            "Verification of machine compliance with current cGMP standards",
+            "Complete functional testing at the end of the intervention, with a detailed technical report"
+          ]
+        },
+        "Applicazioni robotiche": { name:"Integrated Robotic Applications", tagline:"Custom Delta and Linear Robots",
+          specLabels:["Types","Application","Design"],
+          specValues:["Delta Robots, Linear Robots","Product feeding and handling on the line","Custom for every configuration"],
+          features:[
+            "Multiple robotic applications — delta robots and linear robots — designed and integrated to measure for product feeding and handling along the line",
+            "Integration also into the carton chains of existing cartoning machines, to automate previously manual stages",
+            "Lightweight material arms (e.g. carbon) for fast, repeatable pickup cycles even at high rates",
+            "Fully customised design and build based on customer needs and available line layout",
+            "Possibility of retrofitting existing lines, without having to replace the entire machine"
+          ]
+        },
+        "Revamping IMA C60": { name:"Total Revamping: from IMA C60 to ICS X60", tagline:"An emblematic case of complete Overhauling",
+          specLabels:["Starting machine","Resulting machine","Interventions"],
+          specValues:["IMA C60 (monoblock blister/cartoning machine)","ICS X60","Electronics, PLC/HMI, total mechanical restoration"],
+          features:[
+            "An obsolete IMA C60 monoblock blister/cartoning machine was completely renewed, giving new life to an existing asset",
+            "Complete replacement of the machine's electronics and controls, with PLC and HMI updates",
+            "Total mechanical restoration of all main units: forming, sealing, feeding and carton closing",
+            "New-generation touch screen operator panel, with recipe and format parameter management",
+            "Result: performance and reliability equivalent to a new machine, with a significantly lower investment"
+          ]
+        }
+      } },
+    custom: { badge:"Custom &amp; Service", title:"Custom Projects and Support", intro:"Design of fully customised machines and automation for specific production needs, including tailor-made robotic solutions (delta and linear robots), supported by ongoing technical assistance.",
+      models: {
+        "Studio di fattibilità": { name:"Feasibility Study", tagline:"Preliminary analysis of needs",
+          specLabels:["Activity","Output"],
+          specValues:["Analysis of production needs and line constraints","Technical specification document"],
+          features:[
+            "In-depth analysis of the customer's production needs: product, required rates, space and line constraints",
+            "Assessment of regulations applicable to the target sector (pharmaceutical, cosmetic, food, medical devices)",
+            "Identification of the most suitable technologies among forming, filling, closing and quality control",
+            "Drafting of a technical specification document shared with the customer before moving to the design phase",
+            "Starting point for every custom project carried out by ICS Automazione"
+          ]
+        },
+        "Progettazione e robotica": { name:"Design and Robotic Solutions", tagline:"Custom delta and linear robots",
+          specLabels:["Activity","Output"],
+          specValues:["Mechanical, electronic development and custom robotic applications","Construction drawings, electrical schematics, integrated robot"],
+          features:[
+            "Complete mechanical and electronic development of the custom machine or line, starting from the agreed technical specification",
+            "Design and integration of custom robotic applications: delta robots and linear robots for feeding and handling",
+            "Production of detailed construction drawings and complete electrical schematics for each machine unit",
+            "Simulation and validation of the work cycle before the construction phase, to minimise later revisions",
+            "Integration of robotic solutions also into the carton chains of existing cartoning machines"
+          ]
+        },
+        "Realizzazione e assistenza": { name:"Construction and Support", tagline:"Build, testing and ongoing support",
+          specLabels:["Activity","Output"],
+          specValues:["Construction, testing, installation, after-sales support","Tested machine and ongoing technical support"],
+          features:[
+            "Construction of the custom machine or line at our assembly department in Castel San Pietro Terme",
+            "Complete factory testing before shipment, verifying all specifications agreed with the customer",
+            "Installation and commissioning at the customer's facility, with training for operating staff",
+            "Ongoing after-sales technical support, with technicians dedicated to supporting installed lines",
+            "100% Made in Italy, thanks to a network of selected, qualified local suppliers"
+          ]
+        }
+      } }
+  };
+
+  function getLocalizedCategoryData(key){
+    const base = productData[key];
+    if(!base) return null;
+    if(currentLang !== 'en' || !productDataEN[key]) return base;
+    const tr = productDataEN[key];
+    return {
+      badge: tr.badge ? tr.badge.replace(/&amp;/g,'&') : base.badge,
+      title: tr.title ? tr.title.replace(/&amp;/g,'&') : base.title,
+      intro: tr.intro ? tr.intro.replace(/&amp;/g,'&') : base.intro,
+      models: base.models.map(m => {
+        const mt = tr.models && tr.models[m.id];
+        if(!mt) return m;
+        const specs = m.specs.map((pair, i) => {
+          const label = (mt.specLabels && mt.specLabels[i]) ? mt.specLabels[i] : pair[0];
+          const value = (mt.specValues && mt.specValues[i]) ? mt.specValues[i] : pair[1];
+          return [label, value];
+        });
+        return {
+          id: m.id,
+          name: mt.name ? mt.name.replace(/&amp;/g,'&') : m.name,
+          tagline: mt.tagline || m.tagline,
+          specs: specs,
+          features: mt.features || m.features
+        };
+      })
+    };
+  }
+  function getDimensionLabels(){ return currentLang === 'en' ? dimensionDisclaimerLabelsEN : dimensionDisclaimerLabels; }
+  function getDimensionNote(){ return currentLang === 'en' ? dimensionNoteTextEN : dimensionNoteText; }
+
+  const modelMedia = {
+    "XP": [ {type:"image", url:"https://i.imgur.com/f63oYu3.jpeg"}, {type:"image", url:"https://i.imgur.com/HYi8wSt.jpeg"}, {type:"image", url:"https://i.imgur.com/HYTldww.jpeg"}, {type:"image", url:"https://i.imgur.com/UpMjnBL.png"}, {type:"image", url:"https://i.imgur.com/Hln33tW.png"} ],
+    "X1": [ {type:"image", url:"https://i.imgur.com/rUpRCDo.jpeg"}, {type:"image", url:"https://i.imgur.com/5tji4uR.jpeg"}, {type:"image", url:"https://i.imgur.com/PXfENtZ.jpeg"}, {type:"image", url:"https://i.imgur.com/elR0UmI.jpeg"} ],
+    "X2": [ {type:"image", url:"https://i.imgur.com/dJJ2m3v.jpeg"}, {type:"image", url:"https://i.imgur.com/RqfSYZL.jpeg"}, {type:"image", url:"https://i.imgur.com/F45bkQN.jpeg"}, {type:"image", url:"https://i.imgur.com/8RhIqeG.jpeg"}, {type:"image", url:"https://i.imgur.com/tppGq2f.jpeg"}, {type:"image", url:"https://i.imgur.com/pFEqrrm.jpeg"} ],
+    "X3": [ {type:"image", url:"https://i.imgur.com/mBjX8R7.jpeg"}, {type:"image", url:"https://i.imgur.com/xUFXKBx.jpeg"}, {type:"image", url:"https://i.imgur.com/A3mYKPG.jpeg"}, {type:"image", url:"https://i.imgur.com/TnvZm57.jpeg"}, {type:"image", url:"https://i.imgur.com/9xJ51Gx.jpeg"}, {type:"image", url:"https://i.imgur.com/byE37PD.jpeg"}, {type:"image", url:"https://i.imgur.com/dFEemgb.jpeg"}, {type:"image", url:"https://i.imgur.com/XxrYmtM.jpeg"}, {type:"image", url:"https://i.imgur.com/koIcVEG.jpeg"} ],
+    "X8": [ {type:"image", url:"https://i.imgur.com/fSqxx5l.jpeg"}, {type:"image", url:"https://i.imgur.com/8vjNyF3.jpeg"}, {type:"image", url:"https://i.imgur.com/5kAD0Gd.jpeg"}, {type:"image", url:"https://i.imgur.com/qfiCvaC.jpeg"}, {type:"image", url:"https://i.imgur.com/hFN8nWl.jpeg"}, {type:"image", url:"https://i.imgur.com/GeVIkaK.jpeg"} ],
+    "R1": [ {type:"image", url:"https://i.imgur.com/zdz0z8b.jpeg"}, {type:"image", url:"https://i.imgur.com/SudbRpj.jpeg"}, {type:"image", url:"https://i.imgur.com/6uskqb0.jpeg"}, {type:"video", url:"https://i.imgur.com/NpHQIrP.mp4"} ],
+    "R4": [ {type:"image", url:"https://i.imgur.com/oHWLRP3.jpeg"}, {type:"image", url:"https://i.imgur.com/YgKt2yi.jpeg"}, {type:"image", url:"https://i.imgur.com/sQfbyIw.jpeg"} ],
+    "DBM": [],
+    "C2": [ {type:"image", url:"https://i.imgur.com/m2e69lF.jpeg"}, {type:"image", url:"https://i.imgur.com/jN4OzFJ.jpeg"}, {type:"image", url:"https://i.imgur.com/BTPMsBl.jpeg"}, {type:"image", url:"https://i.imgur.com/oS0ZMnI.jpeg"} ],
+    "C3": [ {type:"image", url:"https://i.imgur.com/u2qwB5b.jpeg"}, {type:"image", url:"https://i.imgur.com/hortWSS.jpeg"}, {type:"image", url:"https://i.imgur.com/l2TSljT.jpeg"}, {type:"image", url:"https://i.imgur.com/GnICiXi.jpeg"}, {type:"image", url:"https://i.imgur.com/pw2e7fI.jpeg"} ],
+    "C4": [ {type:"image", url:"https://i.imgur.com/sytRmqA.jpeg"}, {type:"image", url:"https://i.imgur.com/ckk2Wcx.jpeg"}, {type:"image", url:"https://i.imgur.com/RIksryg.jpeg"} ],
+    "C6": [ {type:"image", url:"https://i.imgur.com/XzCF579.jpeg"}, {type:"image", url:"https://i.imgur.com/Tl5jVVn.jpeg"}, {type:"image", url:"https://i.imgur.com/OcLnty1.jpeg"}, {type:"image", url:"https://i.imgur.com/UYyvpdJ.jpeg"}, {type:"image", url:"https://i.imgur.com/gsNSBdk.jpeg"}, {type:"video", url:"https://i.imgur.com/Ydtx2Iz.mp4"}, {type:"video", url:"https://i.imgur.com/B0jKbnY.mp4"} ],
+    "C7": [ {type:"image", url:"https://i.imgur.com/qSV1qMD.jpeg"}, {type:"image", url:"https://i.imgur.com/QpkQLre.jpeg"}, {type:"image", url:"https://i.imgur.com/tqlnXMf.jpeg"}, {type:"image", url:"https://i.imgur.com/TaoqTX1.jpeg"} ],
+    "Abaco": [ {type:"image", url:"https://i.imgur.com/hiDIhSj.jpeg"}, {type:"image", url:"https://i.imgur.com/bY7XNC9.jpeg"}, {type:"image", url:"https://i.imgur.com/7ZmddWo.jpeg"}, {type:"image", url:"https://i.imgur.com/4UsZRqB.jpeg"}, {type:"image", url:"https://i.imgur.com/e58DwZH.jpeg"}, {type:"image", url:"https://i.imgur.com/ZdYodUP.jpeg"}, {type:"image", url:"https://i.imgur.com/a1WEWvN.jpeg"} ],
+    "G1": [ {type:"image", url:"https://i.imgur.com/flP51Og.jpeg"}, {type:"image", url:"https://i.imgur.com/gq6xAPN.jpeg"}, {type:"image", url:"https://i.imgur.com/4u79E5v.jpeg"}, {type:"image", url:"https://i.imgur.com/fP7e7zB.jpeg"} ],
+    "Stazione Track & Trace": [ {type:"image", url:"https://i.imgur.com/oBPoBhd.jpeg"}, {type:"image", url:"https://i.imgur.com/cJvh8Na.jpeg"}, {type:"image", url:"https://i.imgur.com/PcjoN3N.jpeg"}, {type:"image", url:"https://i.imgur.com/uTV6rXL.jpeg"}, {type:"image", url:"https://i.imgur.com/u6xuALK.jpeg"} ],
+    "F16": [ {type:"image", url:"https://i.imgur.com/DwVM4A8.jpeg"}, {type:"image", url:"https://i.imgur.com/6gYexoO.jpeg"}, {type:"image", url:"https://i.imgur.com/OkzkYPJ.jpeg"}, {type:"image", url:"https://i.imgur.com/sMVjvGZ.jpeg"} ],
+    "F18": [ {type:"image", url:"https://i.imgur.com/m7BNA97.jpeg"}, {type:"image", url:"https://i.imgur.com/g6CdosY.jpeg"}, {type:"image", url:"https://i.imgur.com/Si156OB.jpeg"}, {type:"video", url:"https://i.imgur.com/hA4saBB.mp4"} ],
+    "Applicazioni robotiche": [ {type:"image", url:"https://i.imgur.com/JHQ2CbQ.jpeg"} ],
+    "Revamping IMA C60": [ {type:"video", url:"https://i.imgur.com/RwXxKLC.mp4"} ]
+  };
+
+  const facilityHighlights = [
+    { url:"https://i.imgur.com/EHyyUFo.jpeg", label:"Carico linea completa su autotreno", category:"stabilimento", type:"image" },
+    { url:"https://i.imgur.com/VOZ3HCM.jpeg", label:"Linea X8 in reparto montaggio", category:"stabilimento", type:"image" },
+    { url:"https://i.imgur.com/1jgtniU.jpeg", label:"Gruppo di dosaggio multi-punta", category:"macchine", type:"image" },
+    { url:"https://i.imgur.com/GTZgqR8.jpeg", label:"Dettaglio stampi e punzoni", category:"dettagli", type:"image" },
+    { url:"https://i.imgur.com/JHQ2CbQ.jpeg", label:"Robot Delta in carbonio su linea", category:"robotica", type:"image" },
+    { url:"https://i.imgur.com/zCxdh9K.jpeg", label:"Pinze pneumatiche di prelievo", category:"dettagli", type:"image" },
+    { url:"https://i.imgur.com/zxgasRc.jpeg", label:"Sala packaging primario, linea X8", category:"stabilimento", type:"image" }
+  ];
+
+  function modelGalleryItems(modelKey, label, category, maxItems){
+    const items = modelMedia[modelKey] || [];
+    const limited = typeof maxItems === 'number' ? items.slice(0, maxItems) : items;
+    return limited.map(item => ({ url: item.url, label: label, category: category, type: item.type }));
+  }
+
+  const mediaLibrary = [
+    ...facilityHighlights,
+    ...modelGalleryItems("XP", "Blisteratrice XP", "blisteratrici", 2),
+    ...modelGalleryItems("X1", "Blisteratrice X1", "blisteratrici", 2),
+    ...modelGalleryItems("X2", "Blisteratrice X2", "blisteratrici", 2),
+    ...modelGalleryItems("X3", "Blisteratrice X3", "blisteratrici", 2),
+    ...modelGalleryItems("X8", "Blisteratrice X8", "blisteratrici", 2),
+    ...modelGalleryItems("R1", "Termoformatrice R1", "termoformatrici", 2),
+    ...modelGalleryItems("R4", "Termoformatrice R4", "termoformatrici", 2),
+    ...modelGalleryItems("C2", "Deblisteratrice C2", "deblisteratrici", 1),
+    ...modelGalleryItems("C3", "Deblisteratrice C3", "deblisteratrici", 1),
+    ...modelGalleryItems("C4", "Deblisteratrice C4", "deblisteratrici", 1),
+    ...modelGalleryItems("C6", "Deblisteratrice C6", "deblisteratrici", 2),
+    ...modelGalleryItems("C7", "Deblisteratrice C7", "deblisteratrici", 1),
+    ...modelGalleryItems("Abaco", "Contatrice Abaco", "contatrici", 2),
+    ...modelGalleryItems("G1", "Contatrice G1", "contatrici", 1),
+    ...modelGalleryItems("Stazione Track & Trace", "Stazione Track & Trace", "tracktrace", 2)
+  ];
+
+  const photoBandTrack = document.getElementById('photoBandTrack');
+  const photoBandLibrary = [
+    { url:"https://i.imgur.com/EHyyUFo.jpeg", label:"Carico linea completa su autotreno" },
+    { url:"https://i.imgur.com/VOZ3HCM.jpeg", label:"Linea X8 in reparto montaggio" },
+    { url:"https://i.imgur.com/JHQ2CbQ.jpeg", label:"Robot Delta in carbonio su linea" },
+    { url:"https://i.imgur.com/mBjX8R7.jpeg", label:"Blisteratrice X3" },
+    { url:"https://i.imgur.com/zdz0z8b.jpeg", label:"Termoformatrice R1" },
+    { url:"https://i.imgur.com/XzCF579.jpeg", label:"Deblisteratrice C6" },
+    { url:"https://i.imgur.com/hiDIhSj.jpeg", label:"Contatrice Abaco" },
+    { url:"https://i.imgur.com/oBPoBhd.jpeg", label:"Stazione Track & Trace" },
+    { url:"https://i.imgur.com/1jgtniU.jpeg", label:"Gruppo di dosaggio multi-punta" },
+    { url:"https://i.imgur.com/zCxdh9K.jpeg", label:"Pinze pneumatiche di prelievo" }
+  ];
+  const bandLoop = [...photoBandLibrary, ...photoBandLibrary];
+  photoBandTrack.innerHTML = bandLoop.map(m => '<img src="' + m.url + '" alt="' + m.label + '" loading="lazy" decoding="async">').join('');
+  photoBandTrack.style.animationDuration = (photoBandLibrary.length * 1.7) + 's';
+
+  const PREVIEW_COUNT = 8;
+  const galleryPreviewGrid = document.getElementById('galleryPreviewGrid');
+  const galleryGrid = document.getElementById('galleryGrid');
+  const galleryFilter = document.getElementById('galleryFilter');
+  const galleryPreviewView = document.getElementById('galleryPreviewView');
+  const galleryFullView = document.getElementById('galleryFullView');
+  const openFullGalleryBtn = document.getElementById('openFullGallery');
+  const backToGalleryPreviewBtn = document.getElementById('backToGalleryPreview');
+  const galleryCountLabel = document.getElementById('galleryCountLabel');
+  const gallerySection = document.getElementById('gallery-section');
+
+  let currentGalleryItems = [];
+  const miniPlaySvgRef = miniPlaySvg;
+
+  function tileHtml(m, i){
+    const isVideo = m.type === 'video';
+    const mediaHtml = isVideo
+      ? '<video src="' + m.url + '" muted preload="metadata"></video><div class="tile-play" aria-hidden="true">' + miniPlaySvgRef + '</div>'
+      : '<img src="' + m.url + '" alt="' + m.label + '" loading="lazy" decoding="async">';
+    return '<div class="gallery-tile' + (isVideo ? ' is-video' : '') + '" data-index="' + i + '">' + mediaHtml + '<div class="tile-label">' + m.label + (isVideo ? ' · Video' : '') + '</div></div>';
+  }
+
+  function renderPreviewGallery(){
+    const items = mediaLibrary.slice(0, PREVIEW_COUNT);
+    galleryPreviewGrid.innerHTML = items.map((m, i) => tileHtml(m, i)).join('');
+    galleryPreviewGrid.querySelectorAll('.gallery-tile').forEach(tile => {
+      tile.addEventListener('click', () => {
+        currentGalleryItems = items;
+        openLightbox(parseInt(tile.dataset.index, 10));
+      });
+    });
+    const previewLabel = currentLang === 'en'
+      ? 'Preview of ' + items.length + ' out of ' + mediaLibrary.length + ' total files'
+      : 'Anteprima di ' + items.length + ' su ' + mediaLibrary.length + ' file totali';
+    galleryCountLabel.textContent = previewLabel;
+  }
+
+  function renderFullGallery(filter){
+    const items = filter === 'all' ? mediaLibrary : mediaLibrary.filter(m => m.category === filter);
+    currentGalleryItems = items;
+    galleryGrid.innerHTML = items.map((m, i) => tileHtml(m, i)).join('');
+    galleryGrid.querySelectorAll('.gallery-tile').forEach(tile => {
+      tile.addEventListener('click', () => openLightbox(parseInt(tile.dataset.index, 10)));
+    });
+  }
+
+  renderPreviewGallery();
+
+  openFullGalleryBtn.addEventListener('click', () => {
+    renderFullGallery('all');
+    gallerySection.scrollIntoView({behavior:'smooth', block:'start'});
+    galleryPreviewView.classList.remove('visible');
+    setTimeout(() => {
+      galleryPreviewView.hidden = true;
+      galleryFullView.hidden = false;
+      requestAnimationFrame(() => galleryFullView.classList.add('visible'));
+    }, 350);
+  });
+
+  backToGalleryPreviewBtn.addEventListener('click', () => {
+    gallerySection.scrollIntoView({behavior:'smooth', block:'start'});
+    galleryFullView.classList.remove('visible');
+    setTimeout(() => {
+      galleryFullView.hidden = true;
+      galleryPreviewView.hidden = false;
+      requestAnimationFrame(() => galleryPreviewView.classList.add('visible'));
+      renderPreviewGallery();
+    }, 350);
+  });
+
+  galleryFilter.querySelectorAll('button').forEach(btn => {
+    btn.addEventListener('click', () => {
+      galleryFilter.querySelectorAll('button').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderFullGallery(btn.dataset.filter);
+    });
+  });
+
+  const lightboxOverlay = document.getElementById('lightboxOverlay');
+  const lightboxImg = document.getElementById('lightboxImg');
+  const lightboxVideo = document.getElementById('lightboxVideo');
+  const lightboxCaption = document.getElementById('lightboxCaption');
+  const lightboxClose = document.getElementById('lightboxClose');
+  const lightboxPrev = document.getElementById('lightboxPrev');
+  const lightboxNext = document.getElementById('lightboxNext');
+  let lightboxIndex = 0;
+
+  function openLightbox(index){
+    lightboxIndex = index;
+    updateLightboxMedia();
+    lightboxOverlay.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+  function updateLightboxMedia(){
+    const item = currentGalleryItems[lightboxIndex];
+    if(!item) return;
+    lightboxVideo.pause();
+    if(item.type === 'video'){
+      lightboxImg.style.display = 'none';
+      lightboxVideo.style.display = 'block';
+      lightboxVideo.src = item.url;
+    } else {
+      lightboxVideo.style.display = 'none';
+      lightboxVideo.removeAttribute('src');
+      lightboxImg.style.display = 'block';
+      lightboxImg.src = item.url;
+      lightboxImg.alt = item.label;
+    }
+    lightboxCaption.textContent = item.label + (item.type === 'video' ? ' · Video' : '');
+  }
+  function closeLightbox(){
+    lightboxOverlay.classList.remove('active');
+    lightboxVideo.pause();
+    document.body.style.overflow = '';
+  }
+  function showPrev(){ lightboxIndex = (lightboxIndex - 1 + currentGalleryItems.length) % currentGalleryItems.length; updateLightboxMedia(); }
+  function showNext(){ lightboxIndex = (lightboxIndex + 1) % currentGalleryItems.length; updateLightboxMedia(); }
+  lightboxClose.addEventListener('click', closeLightbox);
+  lightboxPrev.addEventListener('click', showPrev);
+  lightboxNext.addEventListener('click', showNext);
+  lightboxOverlay.addEventListener('click', (e) => { if(e.target === lightboxOverlay) closeLightbox(); });
+  document.addEventListener('keydown', (e) => {
+    if(!lightboxOverlay.classList.contains('active')) return;
+    if(e.key === 'Escape') closeLightbox();
+    if(e.key === 'ArrowLeft') showPrev();
+    if(e.key === 'ArrowRight') showNext();
+  });
+
+  const productsSection = document.getElementById('products');
+  const productGrid = document.getElementById('productGrid');
+  const modelList = document.getElementById('modelList');
+  const categoryIntro = document.getElementById('categoryIntro');
+  const modelGrid = document.getElementById('modelGrid');
+  const productDetail = document.getElementById('productDetail');
+  const productDetailContent = document.getElementById('productDetailContent');
+  const backToOverview = document.getElementById('backToOverview');
+  const backToModelList = document.getElementById('backToModelList');
+  const machineIconSvgRef = machineIconSvg;
+
+  let lastClickedCategoryCard = null;
+  let lastClickedModelCard = null;
+  let currentOpenCategoryKey = null;
+  let currentOpenModelId = null;
+
+  function refreshDynamicViews(){
+    if(!modelList.hidden && currentOpenCategoryKey){
+      renderModelList(currentOpenCategoryKey);
+    }
+    if(!productDetail.hidden && currentOpenCategoryKey && currentOpenModelId){
+      renderModelDetail(currentOpenCategoryKey, currentOpenModelId);
+    }
+    if(galleryPreviewView && !galleryPreviewView.hidden){
+      renderPreviewGallery();
+    }
+    if(galleryFullView && !galleryFullView.hidden && galleryFilter){
+      const activeBtn = galleryFilter.querySelector('button.active');
+      renderFullGallery(activeBtn ? activeBtn.dataset.filter : 'all');
+    }
+  }
+
+  function transitionViews(hideEl, showEl, onShown){
+    hideEl.classList.remove('visible');
+    setTimeout(() => {
+      hideEl.hidden = true;
+      showEl.hidden = false;
+      requestAnimationFrame(() => showEl.classList.add('visible'));
+      if(onShown) onShown();
+    }, 350);
+  }
+
+  function renderModelList(key){
+    const data = getLocalizedCategoryData(key);
+    if(!data) return;
+    const labelDetails = currentLang === 'en' ? 'View details &amp; media' : 'Vedi dettagli &amp; media';
+    const labelGallery = currentLang === 'en' ? 'Gallery' : 'Galleria';
+    const labelFiles = currentLang === 'en' ? 'files' : 'file';
+    categoryIntro.innerHTML = '<p class="detail-badge">' + data.badge + '</p><h3>' + data.title + '</h3><p>' + data.intro + '</p>';
+    modelGrid.innerHTML = data.models.map(m => {
+      const media = modelMedia[m.id] || [];
+      const firstImage = media.find(x => x.type === 'image');
+      const previewHtml = firstImage ? '<img src="' + firstImage.url + '" alt="' + m.name + '" loading="lazy" decoding="async">' : machineIconSvgRef;
+      return '<button class="model-card" type="button" data-model="' + m.id + '" data-category="' + key + '"><div class="model-card-media">' + previewHtml + '<span class="media-count">' + labelGallery + ' · ' + media.length + ' ' + labelFiles + '</span></div><div class="model-card-body"><h4>' + m.name + '</h4><p>' + m.tagline + '</p><div class="model-card-arrow">' + labelDetails + ' &rarr;</div></div></button>';
+    }).join('');
+    modelGrid.querySelectorAll('.model-card').forEach(card => {
+      card.addEventListener('click', () => showModelDetail(key, card.dataset.model));
+    });
+  }
+
+  function showModelList(key){
+    lastClickedCategoryCard = document.querySelector('.product-card[data-product="' + key + '"]');
+    currentOpenCategoryKey = key;
+    currentOpenModelId = null;
+    renderModelList(key);
+    productsSection.scrollIntoView({behavior:'smooth', block:'start'});
+    transitionViews(productGrid, modelList, () => backToOverview.focus());
+  }
+
+  document.querySelectorAll('.product-card').forEach(btn => {
+    btn.addEventListener('click', () => showModelList(btn.dataset.product));
+  });
+
+  function showOverview(){
+    if(modelList.hidden && productDetail.hidden) return;
+    currentOpenCategoryKey = null;
+    currentOpenModelId = null;
+    productsSection.scrollIntoView({behavior:'smooth', block:'start'});
+    const fromEl = !productDetail.hidden ? productDetail : modelList;
+    transitionViews(fromEl, productGrid, () => { if(lastClickedCategoryCard) lastClickedCategoryCard.focus(); });
+  }
+  backToOverview.addEventListener('click', showOverview);
+
+  document.querySelectorAll('.nav-products-link').forEach(link => {
+    link.addEventListener('click', () => { if(!modelList.hidden || !productDetail.hidden) showOverview(); });
+  });
+
+  function renderModelDetail(categoryKey, modelId){
+    const data = getLocalizedCategoryData(categoryKey);
+    const model = data.models.find(m => m.id === modelId);
+    if(!data || !model) return;
+    const media = modelMedia[model.id] || [];
+    const dimLabels = getDimensionLabels();
+    const dimNote = getDimensionNote();
+    const specsHtml = model.specs.map(([label, value]) => {
+      const useDisclaimer = dimLabels.some(d => label.indexOf(d) === 0);
+      const cellHtml = useDisclaimer ? '<td class="spec-note">' + dimNote + '</td>' : '<td>' + value + '</td>';
+      return '<tr><th scope="row">' + label + '</th>' + cellHtml + '</tr>';
+    }).join('');
+    const thumbsHtml = media.map((item, i) => {
+      const altLabel = item.type === 'video' ? 'Video' : (currentLang === 'en' ? 'Image' : 'Immagine');
+      const ofLabel = currentLang === 'en' ? 'of' : 'di';
+      const inner = item.type === 'video'
+        ? '<video src="' + item.url + '" muted preload="metadata"></video><span class="thumb-play" aria-hidden="true">' + miniPlaySvgRef + '</span>'
+        : '<img src="' + item.url + '" alt="" loading="lazy" decoding="async">';
+      return '<button class="media-thumb' + (i === 0 ? ' active' : '') + '" type="button" data-index="' + i + '" aria-label="' + altLabel + ' ' + (i + 1) + ' ' + ofLabel + ' ' + model.name + '">' + inner + '</button>';
+    }).join('');
+
+    const featuresHtml = (model.features && model.features.length)
+      ? '<ul class="depliant-features">' + model.features.map(f => '<li>' + f + '</li>').join('') + '</ul>'
+      : '';
+
+    const techTitle = currentLang === 'en' ? 'Technical Specifications' : 'Caratteristiche Tecniche';
+    const ctaLabel = currentLang === 'en' ? 'Request specifications for ' : 'Richiedi specifiche per ';
+    const galleryComingSoon = currentLang === 'en' ? 'Gallery coming soon for this model' : 'Galleria in arrivo per questo modello';
+    const videoBadge = 'Video';
+
+    productDetailContent.innerHTML =
+      '<p class="detail-badge">' + data.badge + ' &middot; ' + model.id + '</p>' +
+      '<div class="depliant-layout">' +
+        '<div class="depliant-media-col">' +
+          '<div class="media-gallery">' +
+            '<div class="media-main" id="mediaMain"></div>' +
+            (media.length > 0 ? '<div class="media-thumbs">' + thumbsHtml + '</div>' : '') +
+          '</div>' +
+          '<div class="depliant-sticky-name"><span>' + data.badge + '</span> &middot; ' + model.name + '</div>' +
+        '</div>' +
+        '<div class="depliant-info-col">' +
+          '<h3 id="detailHeading" tabindex="-1">' + model.name + '</h3>' +
+          '<p class="detail-desc">' + model.tagline + '.</p>' +
+          featuresHtml +
+          '<div class="depliant-specs-title">' + techTitle + '</div>' +
+          '<div class="detail-table-wrap"><table class="detail-table"><tbody>' + specsHtml + '</tbody></table></div>' +
+          '<button class="btn-primary detail-cta" id="detailCta" type="button">' + ctaLabel + model.name + '</button>' +
+        '</div>' +
+      '</div>';
+
+    const mediaMain = document.getElementById('mediaMain');
+    function setMainMedia(item){
+      if(!item){
+        mediaMain.innerHTML = '<div class="media-empty-state">' + machineIconSvgRef + '<span class="media-main-label">' + galleryComingSoon + '</span></div>';
+        return;
+      }
+      mediaMain.innerHTML = item.type === 'video'
+        ? '<span class="play-badge">' + videoBadge + '</span><video src="' + item.url + '" controls preload="metadata"></video>'
+        : '<img src="' + item.url + '" alt="' + model.name + '" loading="lazy" decoding="async">';
+    }
+    setMainMedia(media[0] || null);
+
+    productDetailContent.querySelectorAll('.media-thumb').forEach((thumb, i) => {
+      thumb.addEventListener('click', () => {
+        productDetailContent.querySelectorAll('.media-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        setMainMedia(media[i]);
+      });
+    });
+
+    document.getElementById('detailCta').addEventListener('click', () => requestSpecs(data, model));
+  }
+
+  function showModelDetail(categoryKey, modelId){
+    lastClickedModelCard = document.querySelector('.model-card[data-model="' + modelId + '"]');
+    currentOpenCategoryKey = categoryKey;
+    currentOpenModelId = modelId;
+    renderModelDetail(categoryKey, modelId);
+    productsSection.scrollIntoView({behavior:'smooth', block:'start'});
+    transitionViews(modelList, productDetail, () => backToModelList.focus());
+  }
+
+  function backToModels(){
+    currentOpenModelId = null;
+    productsSection.scrollIntoView({behavior:'smooth', block:'start'});
+    transitionViews(productDetail, modelList, () => { if(lastClickedModelCard) lastClickedModelCard.focus(); });
+  }
+  backToModelList.addEventListener('click', backToModels);
+
+  function requestSpecs(data, model){
+    const textarea = document.getElementById('message');
+    textarea.value = currentLang === 'en'
+      ? 'I would like to request more information and technical specifications for the "' + model.name + '" model (category: ' + data.title + ').'
+      : 'Vorrei richiedere maggiori informazioni e specifiche tecniche per il modello "' + model.name + '" (categoria: ' + data.title + ').';
+    document.getElementById('contact').scrollIntoView({behavior:'smooth', block:'start'});
+    setTimeout(() => textarea.focus(), 550);
+  }
+</script>
+
+</body>
+</html>
